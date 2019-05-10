@@ -30,6 +30,7 @@ class Alg_WC_Price_By_User_Role_Settings_Per_Product extends Alg_WC_Price_By_Use
 				add_action( 'save_post_product',                             array( $this, 'save_meta_box' ), PHP_INT_MAX, 2 );
 				add_filter( 'alg_wc_price_by_user_role_save_meta_box_value', array( $this, 'save_meta_box_value' ), PHP_INT_MAX, 3 );
 				add_action( 'admin_notices',                                 array( $this, 'admin_notices' ) );
+				add_action( 'admin_init',									 array( $this, 'price_enqueue' ) );
 			}
 		}
 	}
@@ -147,8 +148,30 @@ class Alg_WC_Price_By_User_Role_Settings_Per_Product extends Alg_WC_Price_By_Use
 	function create_meta_box() {
 		$current_post_id = get_the_ID();
 		$html = '';
-		$html .= '<table class="widefat striped">';
-		foreach ( $this->get_meta_box_options() as $option ) {
+		
+		$options_data = $this->get_meta_box_options();
+		$feature_enabled = array_shift( $options_data );
+		
+		// add the enable/disable field
+		$html .= '<div id="feature_enabled"><p><strong>';
+		$html .= __( $feature_enabled['title'], 'price-by-user-role-for-woocommerce' );
+		$html .= ':</strong>&nbsp;&nbsp;';
+
+		$prices_enabled = get_post_meta( $current_post_id, '_' . $feature_enabled['name'], true ) ? get_post_meta( $current_post_id, '_' . $feature_enabled['name'], true ) : $feature_enabled['default'];
+		$options = '';
+		foreach ( $feature_enabled['options'] as $data_option_key => $data_option_value ) {
+			$selected = '';
+			$selected = selected( $prices_enabled, $data_option_key, false );
+			
+			$options .= '<option value="' . $data_option_key . '" ' . $selected . '>' . $data_option_value . '</option>';
+		}
+		$html .= '<select id="' . $feature_enabled['name'] . '" name="' . $feature_enabled['name'] . '" class="price_enabled">' . $options . '</select></p></div>';
+		
+		$display = $prices_enabled == 'yes' ? 'block' : 'none';
+
+		// the other fields
+		$html .= '<div class="price_by_roles_display" style="display:' . $display . ';"><table class="widefat striped">';
+		foreach ( $options_data as $option ) {
 			$is_enabled = ( isset( $option['enabled'] ) && 'no' === $option['enabled'] ) ? false : true;
 			if ( $is_enabled ) {
 				if ( 'title' === $option['type'] ) {
@@ -218,7 +241,7 @@ class Alg_WC_Price_By_User_Role_Settings_Per_Product extends Alg_WC_Price_By_Use
 				}
 			}
 		}
-		$html .= '</table>';
+		$html .= '</table></div>';
 		$html .= '<input type="hidden" name="alg_wc_price_by_user_role_' . $this->id . '_save_post" value="alg_wc_price_by_user_role_' . $this->id . '_save_post">';
 		echo $html;
 	}
@@ -254,53 +277,52 @@ class Alg_WC_Price_By_User_Role_Settings_Per_Product extends Alg_WC_Price_By_Use
 				'title'      => '<strong>' . __( 'Enabled', 'price-by-user-role-for-woocommerce' ) . '</strong>',
 			),
 		);
-		if ( 'yes' === get_post_meta( alg_get_product_id_or_variation_parent_id( $_product ), '_' . 'alg_wc_price_by_user_role_per_product_settings_enabled', true ) ) {
-			$visible_roles = get_option( 'alg_wc_price_by_user_role_per_product_show_roles', '' );
-			foreach ( $products as $product_id => $desc ) {
-				foreach ( alg_get_user_roles() as $role_key => $role_data ) {
-					if ( ! empty( $visible_roles ) ) {
-						if ( ! in_array( $role_key, $visible_roles ) ) {
-							continue;
-						}
+		
+		$visible_roles = get_option( 'alg_wc_price_by_user_role_per_product_show_roles', '' );
+		foreach ( $products as $product_id => $desc ) {
+			foreach ( alg_get_user_roles() as $role_key => $role_data ) {
+				if ( ! empty( $visible_roles ) ) {
+					if ( ! in_array( $role_key, $visible_roles ) ) {
+						continue;
 					}
-					$options = array_merge( $options, array(
-						array(
-							'type'       => 'title',
-							'title'      => '<h4>' . '<em>' . $role_data['name'] . '</em>' . '</h4>',
-						),
-						array(
-							'name'       => 'alg_wc_price_by_user_role_regular_price_' . $role_key . '_' . $product_id,
-							'default'    => '',
-							'type'       => 'price',
-							'title'      => __( 'Regular price', 'price-by-user-role-for-woocommerce' ),
-							'desc'       => $desc,
-							'product_id' => $product_id,
-							'meta_name'  => '_' . 'alg_wc_price_by_user_role_regular_price_' . $role_key,
-						),
-						array(
-							'name'       => 'alg_wc_price_by_user_role_sale_price_' . $role_key . '_' . $product_id,
-							'default'    => '',
-							'type'       => 'price',
-							'title'      => __( 'Sale price', 'price-by-user-role-for-woocommerce' ),
-							'desc'       => $desc,
-							'product_id' => $product_id,
-							'meta_name'  => '_' . 'alg_wc_price_by_user_role_sale_price_' . $role_key,
-						),
-						array(
-							'name'       => 'alg_wc_price_by_user_role_empty_price_' . $role_key . '_' . $product_id,
-							'default'    => 'no',
-							'type'       => 'select',
-							'options'    => array(
-								'yes' => __( 'Yes', 'price-by-user-role-for-woocommerce' ),
-								'no'  => __( 'No', 'price-by-user-role-for-woocommerce' ),
-							),
-							'title'      => __( 'Make "empty price"', 'price-by-user-role-for-woocommerce' ),
-							'desc'       => $desc,
-							'product_id' => $product_id,
-							'meta_name'  => '_' . 'alg_wc_price_by_user_role_empty_price_' . $role_key,
-						),
-					) );
 				}
+				$options = array_merge( $options, array(
+					array(
+						'type'       => 'title',
+						'title'      => '<h4>' . '<em>' . $role_data['name'] . '</em>' . '</h4>',
+					),
+					array(
+						'name'       => 'alg_wc_price_by_user_role_regular_price_' . $role_key . '_' . $product_id,
+						'default'    => '',
+						'type'       => 'price',
+						'title'      => __( 'Regular price', 'price-by-user-role-for-woocommerce' ),
+						'desc'       => $desc,
+						'product_id' => $product_id,
+						'meta_name'  => '_' . 'alg_wc_price_by_user_role_regular_price_' . $role_key,
+					),
+					array(
+						'name'       => 'alg_wc_price_by_user_role_sale_price_' . $role_key . '_' . $product_id,
+						'default'    => '',
+						'type'       => 'price',
+						'title'      => __( 'Sale price', 'price-by-user-role-for-woocommerce' ),
+						'desc'       => $desc,
+						'product_id' => $product_id,
+						'meta_name'  => '_' . 'alg_wc_price_by_user_role_sale_price_' . $role_key,
+					),
+					array(
+						'name'       => 'alg_wc_price_by_user_role_empty_price_' . $role_key . '_' . $product_id,
+						'default'    => 'no',
+						'type'       => 'select',
+						'options'    => array(
+							'yes' => __( 'Yes', 'price-by-user-role-for-woocommerce' ),
+							'no'  => __( 'No', 'price-by-user-role-for-woocommerce' ),
+						),
+						'title'      => __( 'Make "empty price"', 'price-by-user-role-for-woocommerce' ),
+						'desc'       => $desc,
+						'product_id' => $product_id,
+						'meta_name'  => '_' . 'alg_wc_price_by_user_role_empty_price_' . $role_key,
+					),
+				) );
 			}
 		}
 		return $options;
@@ -344,6 +366,15 @@ class Alg_WC_Price_By_User_Role_Settings_Per_Product extends Alg_WC_Price_By_Use
 		return $settings;
 	}
 
+	/**
+	 * Add JS files on Edit Product Page
+	 * @since 1.3
+	 */
+	function price_enqueue() {
+		if( isset( $_GET[ 'post' ] ) && $_GET[ 'post' ] > 0 && get_post_type( $_GET['post'] ) == 'product' ) {
+			wp_enqueue_script( 'price-roles-admin-js', plugins_url() . '/price-by-user-role-for-woocommerce-pro/assets/js/product-settings-admin.js',   array( 'jquery' ), alg_wc_price_by_user_role()->version );
+		}
+	}
 }
 
 endif;
