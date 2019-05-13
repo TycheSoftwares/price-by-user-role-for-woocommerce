@@ -2,8 +2,8 @@
 Contributors: tychesoftwares
 Tags: woocommerce, price by user role, woo commerce
 Requires at least: 4.4
-Tested up to: 5.0
-Stable tag: 1.2.2
+Tested up to: 5.2
+Stable tag: 1.3
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -31,6 +31,10 @@ You can also **hide product prices** for selected user roles.
 3. Start by visiting plugin settings at "WooCommerce > Settings > Price by User Role".
 
 == Changelog ==
+
+= 1.3 - 13/05/2019 =
+* Tweak - Modified the code to load the roles and prices for per product settings using jQuery instead of forcing a page reload.
+* Fix - Added the uninstall.php file to ensure plugin cleans up its records when deleted.
 
 = 1.2.2 - 16/11/2018
 * Author name and URL updated due to handover of the plugins
