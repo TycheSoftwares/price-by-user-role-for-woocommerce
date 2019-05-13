@@ -372,7 +372,7 @@ class Alg_WC_Price_By_User_Role_Settings_Per_Product extends Alg_WC_Price_By_Use
 	 */
 	function price_enqueue() {
 		if( isset( $_GET[ 'post' ] ) && $_GET[ 'post' ] > 0 && get_post_type( $_GET['post'] ) == 'product' ) {
-			wp_enqueue_script( 'price-roles-admin-js', plugins_url() . '/price-by-user-role-for-woocommerce-pro/assets/js/product-settings-admin.js',   array( 'jquery' ), alg_wc_price_by_user_role()->version );
+			wp_enqueue_script( 'price-roles-admin-js', plugins_url() . '/price-by-user-role-for-woocommerce/assets/js/product-settings-admin.js',   array( 'jquery' ), alg_wc_price_by_user_role()->version );
 		}
 	}
 }
