@@ -8,7 +8,7 @@
  * Author URI: https://www.tychesoftwares.com/
  * Text Domain: price-by-user-role-for-woocommerce
  * Domain Path: /langs
- * Copyright: © 2018 Tyche Softwares
+ * Copyright: ï¿½ 2018 Tyche Softwares
  * WC tested up to: 3.6.2
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -22,13 +22,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Check if WooCommerce is active.
-if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins', array() ) ) ) && ! ( is_multisite() && array_key_exists( $plugin, get_site_option( 'active_sitewide_plugins', array() ) ) ) ) {
+if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins', array() ) ), true ) && ! ( is_multisite() && array_key_exists( $plugin, get_site_option( 'active_sitewide_plugins', array() ) ) ) ) {
 	return;
 }
 
 if ( 'price-by-user-role-for-woocommerce.php' === basename( __FILE__ ) ) {
 	// Check if Pro is active, if so then return.
-	if ( in_array( 'price-by-user-role-for-woocommerce-pro/price-by-user-role-for-woocommerce-pro.php', apply_filters( 'active_plugins', get_option( 'active_plugins', array() ) ) )
+	if ( in_array( 'price-by-user-role-for-woocommerce-pro/price-by-user-role-for-woocommerce-pro.php', apply_filters( 'active_plugins', get_option( 'active_plugins', array() ) ), true )
 		|| ( is_multisite() && array_key_exists( $plugin, get_site_option( 'active_sitewide_plugins', array() ) ) )
 	) {
 		return;

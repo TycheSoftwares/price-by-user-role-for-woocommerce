@@ -185,7 +185,8 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 							array(
 								'woocommerce_get_price_including_tax',
 								'woocommerce_get_price_excluding_tax',
-							)
+							),
+							true
 						) ) {
 							return alg_get_product_display_price( $_product );
 						} elseif ( in_array(
@@ -195,7 +196,8 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 								'woocommerce_variation_prices_price',
 								'woocommerce_product_get_price',
 								'woocommerce_product_variation_get_price',
-							)
+							),
+							true
 						) ) {
 							$sale_price_per_product = get_post_meta( $_product_id, '_alg_wc_price_by_user_role_sale_price_' . $current_user_role, true );
 							return ( '' != $sale_price_per_product && $sale_price_per_product < $regular_price_per_product ) ?
@@ -207,7 +209,8 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 								'woocommerce_variation_prices_regular_price',
 								'woocommerce_product_get_regular_price',
 								'woocommerce_product_variation_get_regular_price',
-							)
+							),
+							true
 						) ) {
 							return $regular_price_per_product;
 						} elseif ( in_array(
@@ -217,7 +220,8 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 								'woocommerce_variation_prices_sale_price',
 								'woocommerce_product_get_sale_price',
 								'woocommerce_product_variation_get_sale_price',
-							)
+							),
+							true
 						) ) {
 							$sale_price_per_product = get_post_meta( $_product_id, '_alg_wc_price_by_user_role_sale_price_' . $current_user_role, true );
 							return ( '' != $sale_price_per_product ) ?
