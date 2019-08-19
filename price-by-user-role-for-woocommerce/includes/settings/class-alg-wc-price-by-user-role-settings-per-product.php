@@ -261,7 +261,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Settings_Per_Product' ) ) :
 			}
 			$html .= '</table></div>';
 			$html .= '<input type="hidden" name="alg_wc_price_by_user_role_' . $this->id . '_save_post" value="alg_wc_price_by_user_role_' . $this->id . '_save_post">';
-			echo $html;
+			echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
 		/**
