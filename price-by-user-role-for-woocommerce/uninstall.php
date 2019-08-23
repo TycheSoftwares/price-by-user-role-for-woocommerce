@@ -40,12 +40,24 @@ if ( is_multisite() ) {
 		 */
 		$pbur_multisite_prefix = $pbur_blog_id > 1 ? $wpdb->prefix . "$pbur_blog_id_" : $wpdb->prefix;
 
+		$pbur_multisite_prefix_postmeta = "{$pbur_multisite_prefix}postmeta";
+		$pbur_multisite_prefix_options  = "{$pbur_multisite_prefix}options";
 
 		// Product Settings.
-		$wpdb->query( $wpdb->prepare( 'DELETE FROM %s WHERE meta_key LIKE %s', $pbur_multisite_prefix . 'postmeta', '_alg_wc_price_by_user_role_%' ) ); // WPCS: db call ok, WPCS: cache ok.
+		$wpdb->query(
+			$wpdb->prepare(
+				'DELETE FROM `' . $pbur_multisite_prefix_postmeta . '` WHERE meta_key LIKE %s', // phpcs:ignore
+				'_alg_wc_price_by_user_role_%'
+			)
+		); // WPCS: db call ok, WPCS: cache ok.
 
 		// General Settings.
-		$wpdb->query( $wpdb->prepare( 'DELETE FROM %s WHERE option_name LIKE %s', $pbur_multisite_prefix . 'options', 'alg_wc_price_by_user_role_%' ) ); // WPCS: db call ok, WPCS: cache ok.
+		$wpdb->query(
+			$wpdb->prepare(
+				'DELETE FROM `' . $pbur_multisite_prefix_options . '` WHERE option_name LIKE %s',  // phpcs:ignore
+				'alg_wc_price_by_user_role_%'
+			)
+		); // WPCS: db call ok, WPCS: cache ok.
 
 		// Version Number.
 		delete_blog_option( $pbur_blog_id, 'alg_wc_price_by_user_role_version' );
@@ -54,10 +66,10 @@ if ( is_multisite() ) {
 } else {
 
 	// Product Settings.
-	$wpdb->query( $wpdb->prepare( 'DELETE FROM %s WHERE meta_key LIKE %s', $wpdb->prefix . 'postmeta', '_alg_wc_price_by_user_role_%' ) ); // WPCS: db call ok, WPCS: cache ok.
+	$wpdb->query( $wpdb->prepare( 'DELETE FROM `' . $wpdb->prefix . 'postmeta` WHERE meta_key LIKE %s', '_alg_wc_price_by_user_role_%' ) ); // WPCS: db call ok, WPCS: cache ok.
 
 	// General Settings.
-	$wpdb->query( $wpdb->prepare( 'DELETE FROM %s WHERE option_name LIKE %s', $wpdb->prefix . 'options', 'alg_wc_price_by_user_role_%' ) ); // WPCS: db call ok, WPCS: cache ok.
+	$wpdb->query( $wpdb->prepare( 'DELETE FROM `' . $wpdb->prefix . 'options` WHERE option_name LIKE %s', 'alg_wc_price_by_user_role_%' ) ); // WPCS: db call ok, WPCS: cache ok.
 
 	// Version Number.
 	delete_option( 'alg_wc_price_by_user_role_version' );

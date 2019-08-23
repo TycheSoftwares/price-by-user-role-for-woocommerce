@@ -122,7 +122,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Settings_Per_Product' ) ) :
 		 */
 		public function save_meta_box( $post_id, $post ) {
 			// Check that we are saving with current metabox displayed.
-			if ( ! isset( $_POST[ 'alg_wc_price_by_user_role_' . $this->id . '_save_post' ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			if ( ! isset( $_POST[ 'alg_wc_price_by_user_role_' . $this->id . '_save_post' ] ) ) {
 				return;
 			}
 			// Save options.
@@ -132,7 +132,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Settings_Per_Product' ) ) :
 				}
 				$is_enabled = ( isset( $option['enabled'] ) && 'no' === $option['enabled'] ) ? false : true;
 				if ( $is_enabled ) {
-					$option_value  = ( isset( $_POST[ $option['name'] ] ) ) ? sanitize_text_field( wp_unslash( $_POST[ $option['name'] ] ) ) : $option['default']; // phpcs:ignore WordPress.Security.NonceVerification
+					$option_value  = ( isset( $_POST[ $option['name'] ] ) ) ? sanitize_text_field( wp_unslash( $_POST[ $option['name'] ] ) ) : $option['default'];
 					$the_post_id   = ( isset( $option['product_id'] ) ) ? $option['product_id'] : $post_id;
 					$the_meta_name = ( isset( $option['meta_name'] ) ) ? $option['meta_name'] : '_' . $option['name'];
 					update_post_meta( $the_post_id, $the_meta_name, apply_filters( 'alg_wc_price_by_user_role_save_meta_box_value', $option_value, $option['name'] ) );
@@ -172,7 +172,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Settings_Per_Product' ) ) :
 
 			// add the enable/disable field.
 			$html .= '<div id="feature_enabled"><p><strong>';
-			$html .= __( $feature_enabled['title'], 'price-by-user-role-for-woocommerce' ); // phpcs:ignore
+			$html .= __( $feature_enabled['title'], 'price-by-user-role-for-woocommerce' ); //phpcs:ignore
 			$html .= ':</strong>&nbsp;&nbsp;';
 
 			$prices_enabled = get_post_meta( $current_post_id, '_' . $feature_enabled['name'], true ) ? get_post_meta( $current_post_id, '_' . $feature_enabled['name'], true ) : $feature_enabled['default'];
@@ -393,7 +393,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Settings_Per_Product' ) ) :
 		 * @since 1.3
 		 */
 		public function price_enqueue() {
-			if ( isset( $_GET['post'] ) && $_GET['post'] > 0 && get_post_type( sanitize_text_field( wp_unslash( $_GET['post'] ) ) ) === 'product' ) { // phpcs:ignore WordPress.Security.NonceVerification
+			if ( isset( $_GET['post'] ) && $_GET['post'] > 0 && get_post_type( sanitize_text_field( wp_unslash( $_GET['post'] ) ) ) === 'product' ) {
 				wp_enqueue_script( 'price-roles-admin-js', plugins_url() . '/price-by-user-role-for-woocommerce/assets/js/product-settings-admin.js', array( 'jquery' ), alg_wc_price_by_user_role()->version, true );
 			}
 		}
