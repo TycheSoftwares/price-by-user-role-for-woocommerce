@@ -51,7 +51,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Settings_General' ) ) :
 				array(
 					'title'    => __( 'WooCommerce Price by User Role', 'price-by-user-role-for-woocommerce' ),
 					'desc'     => '<strong>' . __( 'Enable plugin', 'price-by-user-role-for-woocommerce' ) . '</strong>',
-					'desc_tip' => __( 'Price based on User Role for WooCommerce.', 'price-by-user-role-for-woocommerce' ),
+					'desc_tip' => __( 'Price based on User Role for WooCommerce.', 'price-by-user-role-for-woocommerce' ) . '<br><a class="button" href="https://www.tychesoftwares.com/docs/docs/price-based-on-user-role-for-woocommerce/" target="_blank">Documentation</a>',
 					'id'       => 'alg_wc_price_by_user_role_enabled',
 					'default'  => 'yes',
 					'type'     => 'checkbox',

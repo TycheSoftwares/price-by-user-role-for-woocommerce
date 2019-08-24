@@ -106,7 +106,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Settings_Per_Product' ) ) :
 			<div class="error"><p>
 			<?php echo '<div class="message">'; ?>
 			<?php /* translators: %s: Link to pro version */ ?>
-			<?php echo sprintf( esc_html__( 'Free plugins version is limited to only one "price by user role per products settings" product enabled at a time. You will need to get <a href="%s" target="_blank">Price based on User Role for WooCommerce Pro</a> to add unlimited number of "price by user role per product settings" products.', 'price-by-user-role-for-woocommerce' ), esc_url( 'https://wpfactory.com/item/price-user-role-woocommerce/' ) ); ?>
+			<?php echo sprintf( wp_kses_post( __( 'Free plugins version is limited to only one "price by user role per products settings" product enabled at a time. You will need to get <strong><a href="%s" target="_blank">Price based on User Role for WooCommerce Pro</a></strong> to add unlimited number of "price by user role per product settings" products.', 'price-by-user-role-for-woocommerce' ) ), esc_url( 'https://www.tychesoftwares.com/store/premium-plugins/price-user-role-woocommerce/' ) ); ?>
 			<?php echo '</div>'; ?>
 			</p></div>
 			<?php
