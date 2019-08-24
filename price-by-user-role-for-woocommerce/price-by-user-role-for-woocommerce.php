@@ -3,13 +3,13 @@
  * Plugin Name: Price based on User Role for WooCommerce
  * Plugin URI: https://www.tychesoftwares.com/store/premium-plugins/price-user-role-woocommerce/
  * Description: Display WooCommerce products prices by user roles.
- * Version: 1.3
+ * Version: 1.4
  * Author: Tyche Softwares
  * Author URI: https://www.tychesoftwares.com/
  * Text Domain: price-by-user-role-for-woocommerce
  * Domain Path: /langs
  * Copyright: � 2018 Tyche Softwares
- * WC tested up to: 3.6.2
+ * WC tested up to: 3.7.0
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Requires PHP: 5.6
@@ -54,7 +54,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role' ) ) :
 		 * @var   string
 		 * @since 1.0.0
 		 */
-		public $version = '1.3';
+		public $version = '1.4';
 
 		/**
 		 * Instance variable
