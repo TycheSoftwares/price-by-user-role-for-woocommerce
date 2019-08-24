@@ -126,7 +126,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role' ) ) :
 			$custom_links   = array();
 			$custom_links[] = '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=alg_wc_price_by_user_role' ) . '">' . __( 'Settings', 'woocommerce' ) . '</a>';
 			if ( 'price-by-user-role-for-woocommerce.php' === basename( __FILE__ ) ) {
-				$custom_links[] = '<a href="https://www.tychesoftwares.com/store/premium-plugins/price-user-role-woocommerce/">' . __( 'Unlock All', 'price-by-user-role-for-woocommerce' ) . '</a>';
+				$custom_links[] = '<a href="https://www.tychesoftwares.com/store/premium-plugins/price-user-role-woocommerce/?utm_source=pburupgradetopro&utm_medium=unlockall&utm_campaign=PriceBasedOnUserRoleLite ">' . __( 'Unlock All', 'price-by-user-role-for-woocommerce' ) . '</a>';
 			}
 			return array_merge( $custom_links, $links );
 		}
