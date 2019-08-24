@@ -114,7 +114,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 				$koef                   = get_option( 'alg_wc_price_by_user_role_' . $current_user_role, 1 );
 				$modified_package_rates = array();
 				foreach ( $package_rates as $id => $package_rate ) {
-					if ( 1 != $koef && isset( $package_rate->cost ) ) {
+					if ( 1 !== $koef && isset( $package_rate->cost ) ) {
 						$package_rate->cost = $package_rate->cost * $koef;
 						if ( isset( $package_rate->taxes ) && ! empty( $package_rate->taxes ) ) {
 							foreach ( $package_rate->taxes as $tax_id => $tax ) {
@@ -146,7 +146,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 						$the_price   = get_post_meta( $child_id, '_price', true );
 						$the_product = wc_get_product( $child_id );
 						$the_price   = alg_get_product_display_price( $the_product, $the_price );
-						if ( $the_price == $price ) {
+						if ( $the_price === $price ) {
 							return $this->change_price_by_role( $price, $the_product );
 						}
 					}
@@ -178,7 +178,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 						return '';
 					}
 					$regular_price_per_product = get_post_meta( $_product_id, '_alg_wc_price_by_user_role_regular_price_' . $current_user_role, true );
-					if ( '' != $regular_price_per_product ) {
+					if ( '' !== $regular_price_per_product ) {
 						$_current_filter = current_filter();
 						if ( in_array(
 							$_current_filter,
@@ -200,7 +200,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 							true
 						) ) {
 							$sale_price_per_product = get_post_meta( $_product_id, '_alg_wc_price_by_user_role_sale_price_' . $current_user_role, true );
-							return ( '' != $sale_price_per_product && $sale_price_per_product < $regular_price_per_product ) ?
+							return ( '' !== $sale_price_per_product && $sale_price_per_product < $regular_price_per_product ) ?
 								$sale_price_per_product : $regular_price_per_product;
 						} elseif ( in_array(
 							$_current_filter,
@@ -224,7 +224,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 							true
 						) ) {
 							$sale_price_per_product = get_post_meta( $_product_id, '_alg_wc_price_by_user_role_sale_price_' . $current_user_role, true );
-							return ( '' != $sale_price_per_product ) ?
+							return ( '' !== $sale_price_per_product ) ?
 								$sale_price_per_product : $price;
 						}
 					}
@@ -237,7 +237,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 					return '';
 				}
 				$koef = get_option( 'alg_wc_price_by_user_role_' . $current_user_role, 1 );
-				if ( 1 != $koef ) {
+				if ( 1 !== $koef ) {
 					return ( '' === $price ) ? $price : $price * $koef;
 				}
 			}
