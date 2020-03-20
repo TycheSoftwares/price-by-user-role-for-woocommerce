@@ -2,7 +2,7 @@
 Contributors: tychesoftwares
 Tags: woocommerce, price by user role, role based pricing, user role
 Requires at least: 4.4
-Tested up to: 5.2
+Tested up to: 5.3.2
 Stable tag: trunk
 Requires PHP: 5.6
 License: GNU General Public License v3.0
@@ -79,6 +79,9 @@ You can also **hide product prices** for selected user roles.
 3. Start by visiting plugin settings at "WooCommerce > Settings > Price by User Role".
 
 == Changelog ==
+
+= 1.4.1 - 20/03/2020 =
+* Update compatibility with WooCommerce 4.0.0.
 
 = 1.4 - 24/08/2019 =
 * Changes in code to make the plugin compliant as per WPCS rules.
