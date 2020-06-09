@@ -12,7 +12,7 @@ Display WooCommerce products prices by user roles.
 
 == Description ==
 
-**[Price based on User Role for WooCommerce](https://www.tychesoftwares.com/store/premium-plugins/price-user-role-woocommerce/?utm_source=wprepo&utm_medium=topprolink&utm_campaign=PriceByUserRole)** plugin lets you display WooCommerce products prices by user roles.
+**[Price based on User Role for WooCommerce](https://woocommerce.com/products/product-prices-by-user-roles-for-woocommerce/)** plugin lets you display WooCommerce products prices by user roles.
 
 Prices can be set **globally** or on **per product** basis.
 
@@ -70,7 +70,7 @@ You can also **hide product prices** for selected user roles.
 * We are open to your suggestions and feedback. Thank you for using or trying out one of our plugins!
 
 = More =
-* Visit the **[Price based on User Role for WooCommerce plugin page](https://www.tychesoftwares.com/store/premium-plugins/price-user-role-woocommerce/?utm_source=wprepo&utm_medium=prolink&utm_campaign=PriceByUserRole)**.
+* Visit the **[Price based on User Role for WooCommerce plugin page](https://woocommerce.com/products/product-prices-by-user-roles-for-woocommerce/)**.
 
 == Installation ==
 

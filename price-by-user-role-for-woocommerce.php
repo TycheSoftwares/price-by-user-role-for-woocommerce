@@ -1,15 +1,15 @@
 <?php
 /**
  * Plugin Name: Price based on User Role for WooCommerce
- * Plugin URI: https://www.tychesoftwares.com/store/premium-plugins/price-user-role-woocommerce/
+ * Plugin URI: https://woocommerce.com/products/product-prices-by-user-roles-for-woocommerce//
  * Description: Display WooCommerce products prices by user roles.
- * Version: 1.4.1
+ * Version: 1.4.2
  * Author: Tyche Softwares
  * Author URI: https://www.tychesoftwares.com/
  * Text Domain: price-by-user-role-for-woocommerce
  * Domain Path: /langs
- * Copyright: � 2018 Tyche Softwares
- * WC tested up to: 4.0.0
+ * Copyright: © 2020 Tyche Softwares
+ * WC tested up to: 4.2.0
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Requires PHP: 5.6
@@ -54,7 +54,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role' ) ) :
 		 * @var   string
 		 * @since 1.0.0
 		 */
-		public $version = '1.4.1';
+		public $version = '1.4.2';
 
 		/**
 		 * Instance variable
@@ -126,7 +126,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role' ) ) :
 			$custom_links   = array();
 			$custom_links[] = '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=alg_wc_price_by_user_role' ) . '">' . __( 'Settings', 'woocommerce' ) . '</a>';
 			if ( 'price-by-user-role-for-woocommerce.php' === basename( __FILE__ ) ) {
-				$custom_links[] = '<a href="https://www.tychesoftwares.com/store/premium-plugins/price-user-role-woocommerce/?utm_source=pburupgradetopro&utm_medium=unlockall&utm_campaign=PriceBasedOnUserRoleLite ">' . __( 'Unlock All', 'price-by-user-role-for-woocommerce' ) . '</a>';
+				$custom_links[] = '<a href="https://woocommerce.com/products/product-prices-by-user-roles-for-woocommerce/">' . __( 'Unlock All', 'price-by-user-role-for-woocommerce' ) . '</a>';
 			}
 			return array_merge( $custom_links, $links );
 		}
