@@ -30,7 +30,7 @@ if ( ! class_exists( 'Alg_WC_Settings_Price_By_User_Role' ) ) :
 		 */
 		public function __construct() {
 			$this->id    = 'alg_wc_price_by_user_role';
-			$this->label = __( 'Price by User Role', 'price-by-user-role-for-woocommerce' );
+			$this->label = __( 'Product Prices by User Roles', 'price-by-user-role-for-woocommerce' );
 			parent::__construct();
 		}
 
