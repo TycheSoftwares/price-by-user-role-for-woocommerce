@@ -1,4 +1,4 @@
-=== Price based on User Role for WooCommerce ===
+=== Product Prices by User Roles for WooCommerce ===
 Contributors: tychesoftwares
 Tags: woocommerce, price by user role, role based pricing, user role
 Requires at least: 4.4
@@ -12,7 +12,7 @@ Display WooCommerce products prices by user roles.
 
 == Description ==
 
-**[Price based on User Role for WooCommerce](https://woocommerce.com/products/product-prices-by-user-roles-for-woocommerce/)** plugin lets you display WooCommerce products prices by user roles.
+**[Product Prices by User Roles for WooCommerce](https://woocommerce.com/products/product-prices-by-user-roles-for-woocommerce/)** plugin lets you display WooCommerce products prices by user roles.
 
 Prices can be set **globally** or on **per product** basis.
 
@@ -70,15 +70,19 @@ You can also **hide product prices** for selected user roles.
 * We are open to your suggestions and feedback. Thank you for using or trying out one of our plugins!
 
 = More =
-* Visit the **[Price based on User Role for WooCommerce plugin page](https://woocommerce.com/products/product-prices-by-user-roles-for-woocommerce/)**.
+* Visit the **[Product Prices by User Roles for WooCommerce plugin page](https://woocommerce.com/products/product-prices-by-user-roles-for-woocommerce/)**.
 
 == Installation ==
 
 1. Upload the entire plugin folder to the `/wp-content/plugins/` directory.
 2. Activate the plugin through the "Plugins" menu in WordPress.
-3. Start by visiting plugin settings at "WooCommerce > Settings > Price by User Role".
+3. Start by visiting plugin settings at "WooCommerce > Settings > Product Prices by User Role".
 
 == Changelog ==
+
+= 1.4.2 - 10/06/2020 =
+* Update compatibility with WooCommerce 4.2.
+* Plugin name changed to Product Prices by User Roles for WooCommerce.
 
 = 1.4.1 - 20/03/2020 =
 * Update compatibility with WooCommerce 4.0.0.

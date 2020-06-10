@@ -106,7 +106,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Settings_Per_Product' ) ) :
 			<div class="error"><p>
 			<?php echo '<div class="message">'; ?>
 			<?php /* translators: %s: Link to pro version */ ?>
-			<?php echo sprintf( wp_kses_post( __( 'Free plugins version is limited to only one "price by user role per products settings" product enabled at a time. You will need to get <strong><a href="%s" target="_blank">Price based on User Role for WooCommerce Pro</a></strong> to add unlimited number of "price by user role per product settings" products.', 'price-by-user-role-for-woocommerce' ) ), esc_url( 'https://woocommerce.com/products/product-prices-by-user-roles-for-woocommerce/' ) ); ?>
+			<?php echo sprintf( wp_kses_post( __( 'Free plugins version is limited to only one "price by user role per products settings" product enabled at a time. You will need to get <strong><a href="%s" target="_blank">Product Prices by User Roles for WooCommerce Pro</a></strong> to add unlimited number of "price by user role per product settings" products.', 'price-by-user-role-for-woocommerce' ) ), esc_url( 'https://woocommerce.com/products/product-prices-by-user-roles-for-woocommerce/' ) ); ?>
 			<?php echo '</div>'; ?>
 			</p></div>
 			<?php
@@ -149,7 +149,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Settings_Per_Product' ) ) :
 		public function add_meta_box() {
 			add_meta_box(
 				'alg_wc_price_by_user_role_' . $this->id,
-				__( 'Price by User Role: Per Product Settings', 'price-by-user-role-for-woocommerce' ),
+				__( 'Product Prices by User Roles: Per Product Settings', 'price-by-user-role-for-woocommerce' ),
 				array( $this, 'create_meta_box' ),
 				'product',
 				'normal',
@@ -365,7 +365,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Settings_Per_Product' ) ) :
 				array(
 					'title'    => __( 'Enable per product settings', 'price-by-user-role-for-woocommerce' ),
 					'desc'     => '<strong>' . __( 'Enable section', 'price-by-user-role-for-woocommerce' ) . '</strong>',
-					'desc_tip' => __( 'When enabled, this will add new "Price by User Role: Per Product Settings" meta box to each product\'s edit page.', 'price-by-user-role-for-woocommerce' ),
+					'desc_tip' => __( 'When enabled, this will add new "Product Prices by User Roles: Per Product Settings" meta box to each product\'s edit page.', 'price-by-user-role-for-woocommerce' ),
 					'type'     => 'checkbox',
 					'id'       => 'alg_wc_price_by_user_role_per_product_enabled',
 					'default'  => 'yes',
