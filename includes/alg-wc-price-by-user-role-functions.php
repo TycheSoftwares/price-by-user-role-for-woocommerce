@@ -104,7 +104,7 @@ if ( ! function_exists( 'alg_get_user_roles' ) ) {
 	function alg_get_user_roles() {
 		global $wp_roles;
 		$all_roles = ( isset( $wp_roles ) && is_object( $wp_roles ) ) ? $wp_roles->roles : array();
-		$all_roles = apply_filters( 'editable_roles', $all_roles );
+		$all_roles = apply_filters( 'woocommerce_shop_manager_editable_roles', $all_roles );
 		$all_roles = array_merge(
 			array(
 				'guest' => array(
