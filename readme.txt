@@ -80,7 +80,7 @@ You can also **hide product prices** for selected user roles.
 
 == Changelog ==
 
-= 1.4.3 - 22/05/2021 =
+= 1.4.3 - 24/05/2021 =
 * Tweak - Now shop manager role will be able to edit the product prices for all the user roles.
 * Fix - Price filtering widget was not working on shop page when different price was set for the different user roles. This is fixed now.
 
