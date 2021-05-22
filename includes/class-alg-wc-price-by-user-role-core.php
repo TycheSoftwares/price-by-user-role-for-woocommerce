@@ -97,6 +97,108 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 			// Grouped products.
 			add_filter( 'woocommerce_get_price_including_tax', array( $this, 'change_price_by_role_grouped' ), PHP_INT_MAX, 3 );
 			add_filter( 'woocommerce_get_price_excluding_tax', array( $this, 'change_price_by_role_grouped' ), PHP_INT_MAX, 3 );
+			// Price filter widgets.
+			add_filter( 'woocommerce_product_query', array( $this, 'alg_wc_price_by_user_role_products_by_price_filter' ), PHP_INT_MAX, 3 );
+			add_filter( 'woocommerce_price_filter_widget_min_amount', array( $this, 'alg_wc_price_by_user_role_min_price' ), PHP_INT_MAX );
+			add_filter( 'woocommerce_price_filter_widget_max_amount', array( $this, 'alg_wc_price_by_user_role_max_price' ), PHP_INT_MAX );
+		}
+
+
+		/**
+		 * Function to add the ID's of the products to show on the product page as per the price filter widget.
+		 *
+		 * @param array $query Main Query.
+		 */
+		public function alg_wc_price_by_user_role_products_by_price_filter( $query ) {
+			if ( $query->is_main_query() && isset( $_GET['max_price'] ) && isset( $_GET['min_price'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+				$product_ids = wc_get_products(
+					array(
+						'return' => 'ids',
+						'limit'  => -1,
+					)
+				);
+				$new_ids     = array();
+				foreach ( $product_ids as $product_id ) {
+					$product        = wc_get_product( $product_id );
+					$product_status = $product->get_status();
+					if ( 'publish' === $product_status ) {
+						$price = $product->get_price();
+						if ( $price >= $_GET['min_price'] && $price <= $_GET['max_price'] ) { // phpcs:ignore WordPress.Security.NonceVerification
+							$new_ids[] = $product_id;
+						}
+					}
+				}
+				remove_filter( 'posts_clauses', array( WC()->query, 'price_filter_post_clauses' ), 10 );
+				$query->set( 'post__in', (array) $new_ids );
+			}
+		}
+
+		/**
+		 * Function to set the Min price in Price filter widgets.
+		 *
+		 * @param int $min_price Min Price.
+		 */
+		public function alg_wc_price_by_user_role_min_price( $min_price ) {
+			$product_ids = wc_get_products(
+				array(
+					'return' => 'ids',
+					'limit'  => -1,
+				)
+			);
+			$min         = array();
+			foreach ( $product_ids as $product_id ) {
+				$product        = wc_get_product( $product_id );
+				$product_status = $product->get_status();
+				if ( 'publish' === $product_status ) {
+					if ( $product->is_type( 'variable' ) ) {
+						$price = $product->get_variation_price();
+					} else {
+						$price = $product->get_price();
+					}
+					if ( '' !== $price ) {
+						$min[] = $price;
+					}
+				}
+			}
+
+			$min_price = min( $min );
+			$steps     = max( apply_filters( 'woocommerce_price_filter_widget_step', 10 ), 1 );
+
+			return ( floor( $min_price / $steps ) * $steps );
+		}
+
+		/**
+		 * Function to set the Min price in Price filter widgets.
+		 *
+		 * @param int $max_price Max price.
+		 */
+		public function alg_wc_price_by_user_role_max_price( $max_price ) {
+			$product_ids = wc_get_products(
+				array(
+					'return' => 'ids',
+					'limit'  => -1,
+				)
+			);
+			$max         = array();
+			foreach ( $product_ids as $product_id ) {
+				$product        = wc_get_product( $product_id );
+				$product_status = $product->get_status();
+				if ( 'publish' === $product_status ) {
+					if ( $product->is_type( 'variable' ) ) {
+						$price = $product->get_variation_price( 'max' );
+					} else {
+						$price = $product->get_price();
+					}
+					if ( '' !== $price ) {
+						$max[] = $price;
+					}
+				}
+			}
+
+			$max_price = max( $max );
+			$steps     = max( apply_filters( 'woocommerce_price_filter_widget_step', 10 ), 1 );
+
+			return ( ceil( $max_price / $steps ) * $steps );
 		}
 
 		/**
