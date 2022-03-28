@@ -110,7 +110,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 		 * @param array $query Main Query.
 		 */
 		public function alg_wc_price_by_user_role_products_by_price_filter( $query ) {
-			if ( $query->is_main_query() && isset( $_GET['max_price'] ) && isset( $_GET['min_price'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			if ( $query->is_main_query() && isset( $_GET['max_price'] ) && isset( $_GET['min_price'] ) && ! apply_filters( 'alg_wc_price_by_user_role_products_by_price_filter', false ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 				$product_ids = wc_get_products(
 					array(
 						'return' => 'ids',
@@ -139,6 +139,11 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 		 * @param int $min_price Min Price.
 		 */
 		public function alg_wc_price_by_user_role_min_price( $min_price ) {
+
+			if ( ! apply_filters( 'alg_wc_price_by_user_role_min_price', true )  ) {
+				return $min_price;
+			}
+
 			$product_ids = wc_get_products(
 				array(
 					'return' => 'ids',
@@ -173,6 +178,11 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 		 * @param int $max_price Max price.
 		 */
 		public function alg_wc_price_by_user_role_max_price( $max_price ) {
+
+			if ( ! apply_filters( 'alg_wc_price_by_user_role_max_price', true )  ) {
+				return $max_price;
+			}
+
 			$product_ids = wc_get_products(
 				array(
 					'return' => 'ids',
