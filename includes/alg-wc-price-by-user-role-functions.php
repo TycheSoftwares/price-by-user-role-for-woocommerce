@@ -104,7 +104,12 @@ if ( ! function_exists( 'alg_get_user_roles' ) ) {
 	function alg_get_user_roles() {
 		global $wp_roles;
 		$all_roles = ( isset( $wp_roles ) && is_object( $wp_roles ) ) ? $wp_roles->roles : array();
-		$all_roles = apply_filters( 'woocommerce_shop_manager_editable_roles', $all_roles );
+		// For not adding this filter when WP Bakery plugin is active.
+		$plugincheck = 'js_composer/js_composer.php';
+		if ( ! in_array( $plugincheck, apply_filters( 'active_plugins', get_option( 'active_plugins', array() ) ), true ) && ! ( is_multisite() && array_key_exists( $plugincheck, get_site_option( 'active_sitewide_plugins', array() ) ) )
+		) {
+			$all_roles = apply_filters( 'alg_woocommerce_shop_manager_editable_roles', $all_roles );
+		}
 		$all_roles = array_merge(
 			array(
 				'guest' => array(
