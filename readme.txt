@@ -80,7 +80,7 @@ You can also **hide product prices** for selected user roles.
 
 == Changelog ==
 
-= 1.5.0 - 15/11/2021 =
+= 1.5.0 - 15/11/2022 =
 * Enhancement - Introduced compatibility with WooCommerce High Performance Order Storage.
 
 = 1.4.3 - 24/05/2021 =
