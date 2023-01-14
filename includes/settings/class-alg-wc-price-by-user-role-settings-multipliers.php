@@ -77,27 +77,29 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Settings_Multipliers' ) ) :
 				),
 			);
 			foreach ( alg_get_user_roles() as $role_key => $role_data ) {
-				$settings = array_merge(
-					$settings,
-					array(
+				if ( ! empty( $role_data['name'] ) ) {
+					$settings = array_merge(
+						$settings,
 						array(
-							'title'             => $role_data['name'],
-							'id'                => 'alg_wc_price_by_user_role_' . $role_key,
-							'default'           => 1,
-							'type'              => 'number',
-							'custom_attributes' => array(
-								'step' => '0.000001',
-								'min'  => '0',
+							array(
+								'title'             => $role_data['name'],
+								'id'                => 'alg_wc_price_by_user_role_' . $role_key,
+								'default'           => 1,
+								'type'              => 'number',
+								'custom_attributes' => array(
+									'step' => '0.000001',
+									'min'  => '0',
+								),
 							),
-						),
-						array(
-							'desc'    => __( 'Make "empty price"', 'price-by-user-role-for-woocommerce' ),
-							'id'      => 'alg_wc_price_by_user_role_empty_price_' . $role_key,
-							'default' => 'no',
-							'type'    => 'checkbox',
-						),
-					)
-				);
+							array(
+								'desc'    => __( 'Make "empty price"', 'price-by-user-role-for-woocommerce' ),
+								'id'      => 'alg_wc_price_by_user_role_empty_price_' . $role_key,
+								'default' => 'no',
+								'type'    => 'checkbox',
+							),
+						)
+					);
+				}
 			}
 			$settings[] = array(
 				'type' => 'sectionend',

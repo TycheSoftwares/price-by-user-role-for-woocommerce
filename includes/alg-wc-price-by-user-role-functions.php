@@ -134,7 +134,9 @@ if ( ! function_exists( 'alg_get_user_roles_options' ) ) {
 		$all_roles         = alg_get_user_roles();
 		$all_roles_options = array();
 		foreach ( $all_roles as $_role_key => $_role ) {
-			$all_roles_options[ $_role_key ] = $_role['name'];
+			if ( ! empty( $role_data['name'] ) ) {
+				$all_roles_options[ $_role_key ] = $_role['name'];
+			}
 		}
 		return $all_roles_options;
 	}
