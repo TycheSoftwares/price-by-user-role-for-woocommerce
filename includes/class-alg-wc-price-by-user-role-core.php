@@ -38,7 +38,6 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 				}
 				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts_admin' ) );
 				add_action( 'woocommerce_ajax_add_order_item_meta', array( $this, 'alg_wc_pbur_product_prices_as_user_role_in_order' ), PHP_INT_MAX, 3 );
-				add_action( 'woocommerce_order_before_calculate_taxes', array( $this, 'alg_wc_price_by_user_role_update_order' ), PHP_INT_MAX, 2 );
 				add_action( 'woocommerce_admin_order_data_after_order_details', array( $this, 'alg_wc_pbur_order_role_selection_option' ), PHP_INT_MAX );
 				add_action( 'wp_ajax_alg_wc_pbur_order_role', array( $this, 'alg_wc_pbur_order_role_callback' ) );
 				add_action( 'save_post', array( $this, 'alg_wc_pbur_update_order_role_options' ), PHP_INT_MAX, 2 );
@@ -588,74 +587,6 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 				}
 			}
 		}
-
-		/**
-		 * Function to update the product prices in the order as per the role selected when Recalculate button is clicked.
-		 *
-		 * @param string $and_taxes Taxes in the order.
-		 * @param object $order Order object.
-		 */
-		public function alg_wc_price_by_user_role_update_order( $and_taxes, $order ) {
-			$order_id                     = $order->get_id();
-			$order_role_checkbox_selected = get_post_meta( $order_id, 'alg_wc_price_by_user_role_order_page_checkbox', true );
-			if ( 'true' === $order_role_checkbox_selected ) {
-				$current_user_role = get_post_meta( $order_id, 'alg_wc_price_by_user_role_order_role', true );
-				foreach ( $order->get_items() as $item_id => $item ) {
-					$product    = $item->get_product();
-					$product_id = $item->get_product_id();
-					if ( 'yes' === get_post_meta( $product_id, '_alg_wc_price_by_user_role_per_product_settings_enabled', true ) ) {
-						$variation_id = $item->get_variation_id();
-						if ( $variation_id > 0 ) {
-							$product_id = $variation_id;
-						}
-						// If user role prices are set to empty.
-						if ( 'yes' === get_post_meta( $product_id, '_alg_wc_price_by_user_role_empty_price_' . $current_user_role, true ) ) {
-							$pbur_price = '';
-						}
-						// Regular price set for user role.
-						$regular_price_per_product = get_post_meta( $product_id, '_alg_wc_price_by_user_role_regular_price_' . $current_user_role, true );
-						if ( '' !== ( $regular_price_per_product ) ) {
-							$pbur_price             = $regular_price_per_product;
-							$sale_price_per_product = get_post_meta( $product_id, '_alg_wc_price_by_user_role_sale_price_' . $current_user_role, true );
-							// checking if sale price set for user role is not null and to set sale price.
-							if ( '' !== $sale_price_per_product ) {
-								$pbur_price = $sale_price_per_product;
-							}
-						} else {
-							$pbur_price = get_post_meta( $product_id, '_price', true );
-						}
-						if ( 'yes' === get_option( 'woocommerce_prices_include_tax', '' ) ) {
-							$pbur_price = wc_get_price_excluding_tax(
-								$product,
-								array( 'price' => $pbur_price )
-							);
-						}
-
-						if ( 'yes' === get_option( 'alg_wc_price_by_user_role_multipliers_enabled', 'yes' ) ) {
-							if ( 'yes' === get_option( 'alg_wc_price_by_user_role_empty_price_' . $current_user_role, 'no' ) ) {
-								$pbur_price = '';
-							}
-							$koef = get_option( 'alg_wc_price_by_user_role_' . $current_user_role, 1 );
-
-							if ( 1 !== ( $koef ) ) {
-								if ( ! empty( $pbur_price ) ) {
-									$pbur_price = $pbur_price * (float) $koef;
-								}
-							}
-						}
-						$quantity   = $item->get_quantity();
-						$pbur_price = $quantity * $pbur_price;
-						$item->set_subtotal( $pbur_price );
-						$item->set_total( $pbur_price );
-						// Make new taxes calculations.
-						$item->calculate_taxes();
-						$item->save(); // Save li-ne item data.
-					}
-					$order->save();
-				}
-			}
-		}
-
 	}
 
 endif;
