@@ -1,5 +1,5 @@
 jQuery( document ).ready(
-    function($) {
+	function() {
         var pbur_checkbox_for_order_role = $( '#checkbox_pbur' ).val();
         $( '#alg_wc_pbur_select_role' ).change(
             function() {
