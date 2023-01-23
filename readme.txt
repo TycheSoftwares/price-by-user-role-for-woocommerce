@@ -80,6 +80,10 @@ You can also **hide product prices** for selected user roles.
 
 == Changelog ==
 
+= 1.6.0 - 24/01/2022 =
+* Enhancement - Add Option to select the Price as per user role for the orders created manually.
+* Fix - Fatal error on the "Multipliers" & "Per Product" tabs.
+
 = 1.5.0 - 15/11/2022 =
 * Enhancement - Introduced compatibility with WooCommerce High Performance Order Storage.
 
