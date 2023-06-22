@@ -144,6 +144,17 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role' ) ) :
 			require_once 'includes/alg-wc-price-by-user-role-functions.php';
 			// Core.
 			require_once 'includes/class-alg-wc-price-by-user-role-core.php';
+			// plugin deactivation.
+			require_once 'includes/class-tyche-plugin-deactivation.php';
+			new Tyche_Plugin_Deactivation(
+				array(
+					'plugin_name'       => 'Product Prices by User Roles for WooCommerce',
+					'plugin_base'       => 'price-by-user-role-for-woocommerce/price-by-user-role-for-woocommerce.php',
+					'script_file'       => plugins_url() . '/price-by-user-role-for-woocommerce/assets/js/plugin-deactivation.js',
+					'plugin_short_name' => 'pbur_lite',
+					'version'           => $this->version,
+				)
+			);
 		}
 
 		/**
