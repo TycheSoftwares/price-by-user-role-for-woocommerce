@@ -412,6 +412,14 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 				return;
 			}
 			$screen = get_current_screen();
+			wp_register_script(
+				'tyche',
+				plugins_url() . '/price-by-user-role-for-woocommerce/assets/js/tyche.js',
+				array( 'jquery' ),
+				alg_wc_price_by_user_role()->version,
+				true
+			);
+			wp_enqueue_script( 'tyche' );
 			if ( 'shop_order' === $screen->post_type ) {
 				$order_id = $post->ID;
 				wp_enqueue_script(
