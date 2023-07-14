@@ -82,9 +82,9 @@ You can also **hide product prices** for selected user roles.
 
 = 1.7.0 - 18/07/2023 =
 * Enhancement - Added deactivation survey v2.
-* Fix - Warning errors displayed on the plugin's tab when the WPBakery plugin is activated.
+* Fix - Warning errors displayed on the plugin's tab when the WPBakery Page Builder plugin is activated.
 * Fix - Compatibility with PHP 8.1.12.
-* Fix - Warning error from the 'alg-wc-price-by-user-role-functions.php' file.
+* Fix - Fixed PHP warnings reported in debug log.
 
 = 1.6.0 - 24/01/2022 =
 * Enhancement - Add Option to select the Price as per user role for the orders created manually.
