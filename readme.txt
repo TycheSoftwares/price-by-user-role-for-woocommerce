@@ -81,7 +81,6 @@ You can also **hide product prices** for selected user roles.
 == Changelog ==
 
 = 1.7.0 - 18/07/2023 =
-
 * Enhancement - Added deactivation survey v2.
 * Fix - Warning errors displayed on the plugin's tab when the WPBakery plugin is activated.
 * Fix - Compatibility with PHP 8.1.12.
