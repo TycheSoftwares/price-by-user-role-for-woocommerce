@@ -2,9 +2,9 @@
 Contributors: tychesoftwares
 Tags: woocommerce, price by user role, role based pricing, user role
 Requires at least: 4.4
-Tested up to: 6.1
+Tested up to: 6.2
 Stable tag: trunk
-Requires PHP: 5.6
+Requires PHP: 7.3
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -79,6 +79,13 @@ You can also **hide product prices** for selected user roles.
 3. Start by visiting plugin settings at "WooCommerce > Settings > Product Prices by User Role".
 
 == Changelog ==
+
+= 1.7.0 - 18/07/2023 =
+
+* Enhancement - Added deactivation survey v2.
+* Fix - Warning errors displayed on the plugin's tab when the WPBakery plugin is activated.
+* Fix - Compatibility with PHP 8.1.12.
+* Fix - Warning error from the 'alg-wc-price-by-user-role-functions.php' file.
 
 = 1.6.0 - 24/01/2022 =
 * Enhancement - Add Option to select the Price as per user role for the orders created manually.
