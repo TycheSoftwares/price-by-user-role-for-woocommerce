@@ -153,6 +153,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role' ) ) :
 					'script_file'       => plugins_url() . '/price-by-user-role-for-woocommerce/assets/js/plugin-deactivation.js',
 					'plugin_short_name' => 'pbur_lite',
 					'version'           => $this->version,
+					'plugin_locale'     => 'price-by-user-role-for-woocommerce',
 				)
 			);
 		}
