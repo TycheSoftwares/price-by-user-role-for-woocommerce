@@ -26,7 +26,6 @@ if ( ! class_exists( 'Pbur_Tracking_Functions' ) ) :
 		 * @since 1.5.0
 		 */
 		public function __construct() {
-
 		}
 
 		/**
