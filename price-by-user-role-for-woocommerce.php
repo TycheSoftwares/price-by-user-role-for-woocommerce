@@ -112,6 +112,10 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role' ) ) :
 				if ( get_option( 'alg_wc_price_by_user_role_version', '' ) !== $this->version ) {
 					add_action( 'admin_init', array( $this, 'version_updated' ) );
 				}
+				add_action( 'admin_footer', array( $this, 'ts_admin_notices_scripts' ) );
+				add_action( 'admin_init', array( $this, 'ts_reset_tracking_setting' ) );
+				add_action( 'pbur_lite_init_tracker_completed', array( __CLASS__, 'init_tracker_completed' ), 10, 2 );
+				add_filter( 'ts_tracker_data', array( 'Pbur_Tracking_Functions', 'pbur_lite_plugin_tracking_data' ), 10, 1 );
 			}
 
 		}
@@ -145,7 +149,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role' ) ) :
 			// Core.
 			require_once 'includes/class-alg-wc-price-by-user-role-core.php';
 			// plugin deactivation survey v2.
-			require_once 'includes/class-tyche-plugin-deactivation.php';
+			require_once 'includes/component/plugin-deactivation/class-tyche-plugin-deactivation.php';
 			new Tyche_Plugin_Deactivation(
 				array(
 					'plugin_name'       => 'Product Prices by User Roles for WooCommerce',
@@ -154,6 +158,18 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role' ) ) :
 					'plugin_short_name' => 'pbur_lite',
 					'version'           => $this->version,
 					'plugin_locale'     => 'price-by-user-role-for-woocommerce',
+				)
+			);
+			$doc_link = 'https://www.tychesoftwares.com/docs/docs/price-based-on-user-role-for-woocommerce/';
+			require_once 'includes/component/plugin-tracking/class-tyche-plugin-tracking.php';
+			require_once 'includes/class-pbur-tracking-functions.php';
+			new Tyche_Plugin_Tracking(
+				array(
+					'plugin_name'       => 'Product Prices by User Roles for WooCommerce',
+					'plugin_locale'     => 'price-by-user-role-for-woocommerce',
+					'plugin_short_name' => 'pbur_lite',
+					'version'           => $this->version,
+					'blog_link'         => $doc_link,
 				)
 			);
 		}
@@ -174,6 +190,46 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role' ) ) :
 				}
 			}
 			update_option( 'alg_wc_price_by_user_role_version', $this->version );
+		}
+
+		/**
+		 * * This function includes js files required for admin side.
+		 * */
+		public function ts_admin_notices_scripts() {
+			wp_enqueue_script(
+				'pbur_lite_ts_dismiss_notice',
+				plugins_url() . '/price-by-user-role-for-woocommerce/assets/js/tyche-dismiss-tracking-notice.js',
+				'',
+				$this->version,
+				false
+			);
+			wp_localize_script(
+				'pbur_lite_ts_dismiss_notice',
+				'pbur_lite_ts_dismiss_notice',
+				array(
+					'ts_prefix_of_plugin' => 'pbur_lite',
+					'ts_admin_url'        => admin_url( 'admin-ajax.php' ),
+				)
+			);
+		}
+
+		/**
+		 * Function remove query argument when click on allow button on opt banner.
+		 */
+		public static function ts_reset_tracking_setting() {
+			if ( isset( $_GET ['ts_action'] ) && 'reset_tracking' === $_GET ['ts_action'] ) {// phpcs:ignore WordPress.Security.NonceVerification
+				Tyche_Plugin_Tracking::reset_tracker_setting( 'pbur_lite' );
+				$ts_url = remove_query_arg( 'ts_action' );
+				wp_safe_redirect( $ts_url );
+			}
+		}
+
+		/**
+		 * Function located on settings page after tracking completed.
+		 */
+		public static function init_tracker_completed() {
+			header( 'Location: ' . admin_url( 'admin.php?page=wc-settings&tab=alg_wc_price_by_user_role' ) );
+			exit;
 		}
 
 		/**
