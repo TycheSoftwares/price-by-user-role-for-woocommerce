@@ -115,7 +115,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role' ) ) :
 				add_action( 'admin_footer', array( $this, 'ts_admin_notices_scripts' ) );
 				add_action( 'admin_init', array( $this, 'ts_reset_tracking_setting' ) );
 				add_action( 'pbur_lite_init_tracker_completed', array( __CLASS__, 'init_tracker_completed' ), 10, 2 );
-				add_filter( 'ts_tracker_data', array( 'Pbur_Tracking_Functions', 'pbur_lite_plugin_tracking_data' ), 10, 1 );
+				add_filter( 'pbur_lite_ts_tracker_data', array( 'Pbur_Tracking_Functions', 'pbur_lite_plugin_tracking_data' ), 10, 1 );
 			}
 
 		}
@@ -196,6 +196,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role' ) ) :
 		 * * This function includes js files required for admin side.
 		 * */
 		public function ts_admin_notices_scripts() {
+			$nonce = wp_create_nonce( 'tracking_notice' );
 			wp_enqueue_script(
 				'pbur_lite_ts_dismiss_notice',
 				plugins_url() . '/price-by-user-role-for-woocommerce/assets/js/tyche-dismiss-tracking-notice.js',
@@ -209,6 +210,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role' ) ) :
 				array(
 					'ts_prefix_of_plugin' => 'pbur_lite',
 					'ts_admin_url'        => admin_url( 'admin-ajax.php' ),
+					'tracking_notice'     => $nonce,
 				)
 			);
 		}
