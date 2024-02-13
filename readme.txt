@@ -81,7 +81,7 @@ You can also **hide product prices** for selected user roles.
 == Changelog ==
 
 = 1.8.0 - 13/02/2024 =
-*Fix - Fixed Cross Site Request Forgery (CSRF) vulnerability.
+* Fix - Fixed Cross Site Request Forgery (CSRF) vulnerability.
 
 = 1.7.0 - 18/07/2023 =
 * Enhancement - Added deactivation survey v2.
