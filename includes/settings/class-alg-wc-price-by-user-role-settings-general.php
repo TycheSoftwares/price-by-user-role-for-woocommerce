@@ -22,7 +22,20 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Settings_General' ) ) :
 	 * @since   1.0.0
 	 */
 	class Alg_WC_Price_By_User_Role_Settings_General extends Alg_WC_Price_By_User_Role_Settings_Section {
-
+		/**
+		 * ID
+		 *
+		 * @var $id
+		 * @since 1.0.0
+		 */
+		public $id = '';
+		/**
+		 * Desc
+		 *
+		 * @var $desc
+		 * @since 1.0.0
+		 */
+		public $desc = "";
 		/**
 		 * Constructor.
 		 *

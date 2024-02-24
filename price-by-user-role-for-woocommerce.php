@@ -48,7 +48,13 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role' ) ) :
 	final class Alg_WC_Price_By_User_Role {
 
 
-
+		/**
+		 * Settings.
+		 *
+		 * @var $settings.
+		 * @since 1.0.0
+		 */
+		public $settings = '';
 		/**
 		 * Plugin version.
 		 *
