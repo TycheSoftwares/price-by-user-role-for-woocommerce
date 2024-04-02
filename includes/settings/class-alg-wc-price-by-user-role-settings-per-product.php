@@ -35,7 +35,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Settings_Per_Product' ) ) :
 		 * @var $desc
 		 * @since 1.0.0
 		 */
-		public $desc = "";
+		public $desc = '';
 		/**
 		 * Constructor.
 		 *
