@@ -80,9 +80,10 @@ You can also **hide product prices** for selected user roles.
 
 == Changelog ==
 
-= 1.9.0 - 02/04/2024 = 
-* Tweak :- Update compatibility with WordPress 6.5.
-* Tweak :- Update compatibility with WooCommerce 8.7.
+= 1.9.0 - 03/04/2024 = 
+* Tweak - Update compatibility with WordPress 6.5.
+* Tweak - Update compatibility with WooCommerce 8.7.
+* Fix – Cross Site Request Forgery (CSRF) vulnerability.
 
 = 1.8.0 - 13/02/2024 =
 * Fix - Fixed Cross Site Request Forgery (CSRF) vulnerability.
