@@ -11,6 +11,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
+use Automattic\WooCommerce\Utilities\OrderUtil;
 
 if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 
@@ -38,14 +39,17 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 				}
 				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts_admin' ) );
 				add_action( 'woocommerce_ajax_add_order_item_meta', array( $this, 'alg_wc_pbur_product_prices_as_user_role_in_order' ), PHP_INT_MAX, 3 );
+				add_action( 'woocommerce_order_before_calculate_taxes', array( $this, 'alg_wc_price_by_user_role_update_order' ), PHP_INT_MAX, 2 );
 				add_action( 'woocommerce_admin_order_data_after_order_details', array( $this, 'alg_wc_pbur_order_role_selection_option' ), PHP_INT_MAX );
 				add_action( 'wp_ajax_alg_wc_pbur_order_role', array( $this, 'alg_wc_pbur_order_role_callback' ) );
+				add_action( 'wp_ajax_alg_wc_pbur_order_detect_role', array( $this, 'alg_wc_pbur_order_detect_role_callback' ) );
+				add_action( 'wp_ajax_alg_wc_pbur_checkbox_value', array( $this, 'alg_wc_pbur_checkbox_value_callback' ) );
 				add_action( 'save_post', array( $this, 'alg_wc_pbur_update_order_role_options' ), PHP_INT_MAX, 2 );
 			}
 		}
 
 		/**
-		 * Add_hooks.
+		 * Hook add_hooks.
 		 *
 		 * @version 1.1.0
 		 * @since   1.0.0
@@ -93,7 +97,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 			}
 			// Hooking...
 			foreach ( $price_hooks as $price_hook ) {
-				add_filter( $price_hook, array( $this, 'change_price_by_role' ), PHP_INT_MAX, 2 );
+				add_filter( $price_hook, array( $this, 'change_price_by_role' ), 10, 2 );
 			}
 			// Variations Hash.
 			add_filter( 'woocommerce_get_variation_prices_hash', array( $this, 'get_variation_prices_hash' ), PHP_INT_MAX, 3 );
@@ -107,7 +111,6 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 			add_filter( 'woocommerce_price_filter_widget_min_amount', array( $this, 'alg_wc_price_by_user_role_min_price' ), PHP_INT_MAX );
 			add_filter( 'woocommerce_price_filter_widget_max_amount', array( $this, 'alg_wc_price_by_user_role_max_price' ), PHP_INT_MAX );
 		}
-
 
 		/**
 		 * Function to add the ID's of the products to show on the product page as per the price filter widget.
@@ -275,6 +278,21 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 		}
 
 		/**
+		 * Check if HPOS is enabled or not.
+		 *
+		 * @since 1.8.0
+		 * return boolean true if enabled else false
+		 */
+		public function pbur_wc_hpos_enabled() {
+			if ( class_exists( '\Automattic\WooCommerce\Utilities\OrderUtil' ) ) {
+				if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		/**
 		 * Change_price_by_role.
 		 *
 		 * @param string $price Price.
@@ -407,24 +425,26 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 		 * @since   1.0.0
 		 */
 		public function enqueue_scripts_admin() {
-			global $post;
+			global $theorder,$post;
 			if ( ! is_admin() ) {
 				return;
 			}
 			$screen = get_current_screen();
-			wp_register_script(
-				'tyche',
-				plugins_url() . '/price-by-user-role-for-woocommerce/assets/js/tyche.js',
-				array( 'jquery' ),
-				alg_wc_price_by_user_role()->version,
-				true
-			);
-			wp_enqueue_script( 'tyche' );
-			if ( 'shop_order' === $screen->post_type ) {
-				$order_id = $post->ID;
+			$action = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+			if ( $this->pbur_wc_hpos_enabled() ) {
+				$screen_type = $screen->id;
+			} else {
+				$screen_type = $screen->post_type;
+			}
+			if ( 'shop_order' === $screen_type || 'woocommerce_page_wc-orders' === $screen_type && 'new' === $action || 'edit' === $action ) {
+				if ( 'woocommerce_page_wc-orders' === $screen_type ) {
+					$order_id = $theorder->get_id();
+				} else {
+					$order_id = $post->ID;
+				}
 				wp_enqueue_script(
 					'alg-wc-price-by-user-role-admin',
-					plugins_url() . '/price-by-user-role-for-woocommerce/assets/js/alg-wc-price-by-user-role-admin.js',
+					plugins_url() . '/price-by-user-role-for-woocommerce-pro/assets/js/alg-wc-price-by-user-role-admin.js',
 					array( 'jquery' ),
 					alg_wc_price_by_user_role()->version,
 					true
@@ -433,7 +453,8 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 					'alg-wc-price-by-user-role-admin',
 					'pbur_order_id',
 					array(
-						'order_id' => $order_id,
+						'order_id'    => $order_id,
+						'screen_type' => $screen_type,
 					)
 				);
 				wp_localize_script(
@@ -459,11 +480,79 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 		 * Ajax callback function when role is selected.
 		 */
 		public function alg_wc_pbur_order_role_callback() {
-				$order_id                 = sanitize_text_field( wp_unslash( $_POST['order_id'] ) ); //phpcs:ignore
-				$pbur_checkbox_selected   = sanitize_text_field( wp_unslash( $_POST['pbur_check'] ) ); //phpcs:ignore
-				$pbur_order_role_selected = sanitize_text_field( wp_unslash( $_POST['admin_choice'] ) ); //phpcs:ignore
-			update_post_meta( $order_id, 'alg_wc_price_by_user_role_order_page_checkbox', $pbur_checkbox_selected );
-			update_post_meta( $order_id, 'alg_wc_price_by_user_role_order_role', $pbur_order_role_selected );
+			if ( ! is_admin() ) {
+				check_ajax_referer( 'alg_wc_pbur_select_role', 'security' );
+			}
+			if ( isset( $_POST['order_id'] ) ) {
+				$order_id = sanitize_text_field( wp_unslash( $_POST['order_id'] ) );
+			}
+			if ( isset( $_POST['pbur_check'] ) ) {
+				$pbur_checkbox_selected = sanitize_text_field( wp_unslash( $_POST['pbur_check'] ) );
+			}
+			if ( isset( $_POST['admin_choice'] ) ) {
+				$pbur_order_role_selected = sanitize_text_field( wp_unslash( $_POST['admin_choice'] ) );
+			}
+			if ( $this->pbur_wc_hpos_enabled() ) {
+				$order = wc_get_order( $order_id );
+				$order->update_meta_data( 'alg_wc_price_by_user_role_order_page_checkbox', $pbur_checkbox_selected );
+				$order->update_meta_data( 'alg_wc_price_by_user_role_order_role', $pbur_order_role_selected );
+				$order->save();
+			} else {
+				update_post_meta( $order_id, 'alg_wc_price_by_user_role_order_page_checkbox', $pbur_checkbox_selected );
+				update_post_meta( $order_id, 'alg_wc_price_by_user_role_order_role', $pbur_order_role_selected );
+			}
+		}
+		/**
+		 * Ajax callback function when role is selected.
+		 */
+		public function alg_wc_pbur_order_detect_role_callback() {
+			if ( ! is_admin() ) {
+				check_ajax_referer( 'alg_wc_pbur_select_role', 'security' );
+			}
+			if ( isset( $_POST['order_id'] ) ) {
+				$order_id = sanitize_text_field( wp_unslash( $_POST['order_id'] ) );
+			}
+			if ( isset( $_POST['pbur_check'] ) ) {
+				$pbur_checkbox_selected = sanitize_text_field( wp_unslash( $_POST['pbur_check'] ) );
+			}
+			if ( isset( $_POST['user_id'] ) ) {
+				$pbur_detected_user_id    = sanitize_text_field( wp_unslash( $_POST['user_id'] ) );
+				$pbur_detected_user_role  = get_userdata( $pbur_detected_user_id );
+				$pbur_detected_user_role  = $pbur_detected_user_role->roles;
+				$pbur_order_role_selected = $pbur_detected_user_role[0];
+			}
+			if ( $this->pbur_wc_hpos_enabled() ) {
+				$order = wc_get_order( $order_id );
+				$order->update_meta_data( 'alg_wc_price_by_user_role_order_page_checkbox', $pbur_checkbox_selected );
+				$order->update_meta_data( 'alg_wc_price_by_user_role_order_role', $pbur_order_role_selected );
+				$order->save();
+			} else {
+				update_post_meta( $order_id, 'alg_wc_price_by_user_role_order_page_checkbox', $pbur_checkbox_selected );
+				update_post_meta( $order_id, 'alg_wc_price_by_user_role_order_role', $pbur_order_role_selected );
+			}
+			echo esc_attr( $pbur_order_role_selected );
+		}
+
+		/**
+		 * Ajax callback function when role is selected.
+		 */
+		public function alg_wc_pbur_checkbox_value_callback() {
+			if ( ! is_admin() ) {
+				check_ajax_referer( 'alg_wc_pbur_select_role', 'security' );
+			}
+			if ( isset( $_POST['order_id'] ) ) {
+				$order_id = sanitize_text_field( wp_unslash( $_POST['order_id'] ) );
+			}
+			if ( isset( $_POST['pbur_check'] ) ) {
+				$pbur_checkbox_selected = sanitize_text_field( wp_unslash( $_POST['pbur_check'] ) );
+			}
+			if ( $this->pbur_wc_hpos_enabled() ) {
+				$order = wc_get_order( $order_id );
+				$order->update_meta_data( 'alg_wc_price_by_user_role_order_page_checkbox', $pbur_checkbox_selected );
+				$order->save();
+			} else {
+				update_post_meta( $order_id, 'alg_wc_price_by_user_role_order_page_checkbox', $pbur_checkbox_selected );
+			}
 		}
 
 		/**
@@ -472,9 +561,19 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 		 * @param Object $order Order object.
 		 */
 		public function alg_wc_pbur_order_role_selection_option( $order ) {
-			$order_id                     = $order->get_id();
-			$order_role_checkbox_selected = get_post_meta( $order_id, 'alg_wc_price_by_user_role_order_page_checkbox_on_save', true );
-			if ( 'on' === $order_role_checkbox_selected ) {
+
+			global $pagenow;
+			$pagenow1 = '';
+			if ( $this->pbur_wc_hpos_enabled() ) {
+				$pagenow1                     = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+				$order_role_checkbox_selected = $order->get_meta( 'alg_wc_price_by_user_role_order_page_checkbox' );
+				$order_role_selected          = $order->get_meta( 'alg_wc_price_by_user_role_order_role' );
+			} else {
+				$order_id                     = $order->get_id();
+				$order_role_checkbox_selected = get_post_meta( $order_id, 'alg_wc_price_by_user_role_order_page_checkbox', true );
+				$order_role_selected          = get_post_meta( $order_id, 'alg_wc_price_by_user_role_order_role', true );
+			}
+			if ( 'true' === $order_role_checkbox_selected || 'on' === $order_role_checkbox_selected || 'post-new.php' === $pagenow || 'new' === $pagenow1 ) {
 				$checked = 'checked';
 			} else {
 				$checked = '';
@@ -489,7 +588,6 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 				<option value ="not_selected"> <?php esc_html_e( 'Select a role', 'price-by-user-role-for-woocommerce' ); ?> </option>
 			<?php
 			foreach ( alg_get_user_roles() as $role_key => $role_data ) {
-				$order_role_selected = get_post_meta( $order_id, 'alg_wc_price_by_user_role_order_role_on_save', true );
 				if ( $role_key === $order_role_selected ) {
 					$selected = 'selected';
 				} else {
@@ -525,8 +623,16 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 			}
 			$pbur_checkbox_selected   = sanitize_text_field( wp_unslash( $_POST['checkbox_pbur'] ) );
 			$pbur_order_role_selected = sanitize_text_field( wp_unslash( $_POST['alg_wc_pbur_select_role'] ) );
-			update_post_meta( $post_id, 'alg_wc_price_by_user_role_order_page_checkbox_on_save', $pbur_checkbox_selected );
-			update_post_meta( $post_id, 'alg_wc_price_by_user_role_order_role_on_save', $pbur_order_role_selected );
+			if ( $this->pbur_wc_hpos_enabled() ) {
+				$order = wc_get_order( $post_id );
+				$order->update_meta_data( 'alg_wc_price_by_user_role_order_page_checkbox', $pbur_checkbox_selected );
+				$order->update_meta_data( 'alg_wc_price_by_user_role_order_role', $pbur_order_role_selected );
+				$order->save();
+
+			} else {
+				update_post_meta( $post_id, 'alg_wc_price_by_user_role_order_page_checkbox', $pbur_checkbox_selected );
+				update_post_meta( $post_id, 'alg_wc_price_by_user_role_order_role', $pbur_order_role_selected );
+			}
 		}
 
 		/**
@@ -539,7 +645,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 		public function alg_wc_pbur_product_prices_as_user_role_in_order( $item_id, $item, $order ) {
 			$order_id                     = $order->get_id();
 			$order_role_checkbox_selected = get_post_meta( $order_id, 'alg_wc_price_by_user_role_order_page_checkbox', true );
-			if ( 'true' === $order_role_checkbox_selected ) {
+			if ( 'true' === $order_role_checkbox_selected || 'on' === $order_role_checkbox_selected ) {
 				$current_user_role = get_post_meta( $order_id, 'alg_wc_price_by_user_role_order_role', true );
 				$product_id        = $item->get_product_id();
 				if ( $product_id > 0 ) {
@@ -560,27 +666,15 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 							if ( '' !== ( $regular_price_per_product ) ) {
 								$pbur_price             = $regular_price_per_product;
 								$sale_price_per_product = get_post_meta( $product_id, '_alg_wc_price_by_user_role_sale_price_' . $current_user_role, true );
+								$pbur_price             = $this->pbur_check_price_by_role_admin_order( $product_id, $current_user_role, $pbur_price );
 								// checking if sale price set for user role is not null and to set sale price.
 								if ( '' !== $sale_price_per_product ) {
 									$pbur_price = $sale_price_per_product;
+									$pbur_price = $this->pbur_check_price_by_role_admin_order( $product_id, $current_user_role, $pbur_price );
 								}
 							} else {
 								$pbur_price = get_post_meta( $product_id, '_price', true );
 							}
-
-							if ( 'yes' === get_option( 'alg_wc_price_by_user_role_multipliers_enabled', 'yes' ) ) {
-								if ( 'yes' === get_option( 'alg_wc_price_by_user_role_empty_price_' . $current_user_role, 'no' ) ) {
-									$pbur_price = '';
-								}
-								$koef = get_option( 'alg_wc_price_by_user_role_' . $current_user_role, 1 );
-
-								if ( 1 !== ( $koef ) ) {
-									if ( ! empty( $pbur_price ) ) {
-										$pbur_price = $pbur_price * (float) $koef;
-									}
-								}
-							}
-
 							$quantity   = $item->get_quantity();
 							$pbur_price = $quantity * $pbur_price;
 							$item->set_subtotal( $pbur_price );
@@ -594,6 +688,89 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 					}
 				}
 			}
+		}
+
+		/**
+		 * Function to update the product prices in the order as per the role selected when Recalculate button is clicked.
+		 *
+		 * @param string $and_taxes Taxes in the order.
+		 * @param object $order Order object.
+		 */
+		public function alg_wc_price_by_user_role_update_order( $and_taxes, $order ) {
+			$order_id                     = $order->get_id();
+			$order_role_checkbox_selected = get_post_meta( $order_id, 'alg_wc_price_by_user_role_order_page_checkbox', true );
+			if ( 'on' === $order_role_checkbox_selected ) {
+				$current_user_role = get_post_meta( $order_id, 'alg_wc_price_by_user_role_order_role', true );
+				foreach ( $order->get_items() as $item_id => $item ) {
+					$product    = $item->get_product();
+					$product_id = $item->get_product_id();
+					if ( 'yes' === get_post_meta( $product_id, '_alg_wc_price_by_user_role_per_product_settings_enabled', true ) ) {
+						$variation_id = $item->get_variation_id();
+						if ( $variation_id > 0 ) {
+							$product_id = $variation_id;
+						}
+						// If user role prices are set to empty.
+						if ( 'yes' === get_post_meta( $product_id, '_alg_wc_price_by_user_role_empty_price_' . $current_user_role, true ) ) {
+							$pbur_price = '';
+						}
+						// Regular price set for user role.
+						$regular_price_per_product = get_post_meta( $product_id, '_alg_wc_price_by_user_role_regular_price_' . $current_user_role, true );
+						if ( '' !== ( $regular_price_per_product ) ) {
+							$pbur_price             = $regular_price_per_product;
+							$sale_price_per_product = get_post_meta( $product_id, '_alg_wc_price_by_user_role_sale_price_' . $current_user_role, true );
+							$pbur_price             = $this->pbur_check_price_by_role_admin_order( $product_id, $current_user_role, $pbur_price );
+							// checking if sale price set for user role is not null and to set sale price.
+							if ( '' !== $sale_price_per_product ) {
+								$pbur_price = $sale_price_per_product;
+								$pbur_price = $this->pbur_check_price_by_role_admin_order( $product_id, $current_user_role, $pbur_price );
+							}
+						} else {
+							$pbur_price = get_post_meta( $product_id, '_price', true );
+						}
+						if ( 'yes' === get_option( 'woocommerce_prices_include_tax', '' ) ) {
+							$pbur_price = wc_get_price_excluding_tax(
+								$product,
+								array( 'price' => $pbur_price )
+							);
+						}
+						$quantity   = $item->get_quantity();
+						$pbur_price = $quantity * $pbur_price;
+						$item->set_subtotal( $pbur_price );
+						$item->set_total( $pbur_price );
+						// Make new taxes calculations.
+						$item->calculate_taxes();
+						$item->save(); // Save li-ne item data.
+					}
+					$order->save();
+				}
+			}
+		}
+
+		/**
+		 * Function to check the product prices in the order as per the role selected when add product button is clicked.
+		 *
+		 * @param object $product_id product id.
+		 * @param string $current_user_role current user role.
+		 * @param float  $pbur_price product price.
+		 */
+		public function pbur_check_price_by_role_admin_order( $product_id, $current_user_role, $pbur_price ) {
+			if ( 'fixed_price' !== get_post_meta( $product_id, '_alg_wc_price_by_user_role_adjusment_type_' . $current_user_role, true ) ) {
+					$adjustment_types = get_post_meta( $product_id, '_alg_wc_price_by_user_role_adjusment_type_' . $current_user_role, true );
+					$price            = get_post_meta( $product_id, '_price', true );
+					$pbur_price       = $this->change_price_by_role_adjucement_type( $price, $pbur_price, $adjustment_types );
+			}
+			if ( 'yes' === get_option( 'alg_wc_price_by_user_role_multipliers_enabled', 'yes' ) ) {
+				if ( 'yes' === get_option( 'alg_wc_price_by_user_role_empty_price_' . $current_user_role, 'no' ) ) {
+					return '';
+				}
+				$koef = get_option( 'alg_wc_price_by_user_role_' . $current_user_role, 1 );
+				if ( 1 !== ( $koef ) ) {
+					if ( ! empty( $pbur_price ) ) {
+						$pbur_price = $pbur_price * (float) $koef;
+					}
+				}
+			}
+			return $pbur_price;
 		}
 	}
 
