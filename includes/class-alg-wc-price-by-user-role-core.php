@@ -444,7 +444,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 				}
 				wp_enqueue_script(
 					'alg-wc-price-by-user-role-admin',
-					plugins_url() . '/price-by-user-role-for-woocommerce-pro/assets/js/alg-wc-price-by-user-role-admin.js',
+					plugins_url() . '/price-by-user-role-for-woocommerce/assets/js/alg-wc-price-by-user-role-admin.js',
 					array( 'jquery' ),
 					alg_wc_price_by_user_role()->version,
 					true
