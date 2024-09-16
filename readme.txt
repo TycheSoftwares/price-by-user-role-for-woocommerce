@@ -2,15 +2,19 @@
 Contributors: tychesoftwares
 Tags: woocommerce, price by user role, role based pricing, user role
 Requires at least: 4.4
-Tested up to: 6.6
+Tested up to: 6.6.2
 Stable tag: trunk
 Requires PHP: 7.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Display WooCommerce products prices by user roles.
+Set user role based product prices in WooCommerce. Set Role based pricing globally or per product, hide prices for selected roles and more.
 
 == Description ==
+
+> ###🚀&nbsp;&nbsp;New Launch: Flexi BOGO for WooCommerce
+>
+> The only BOGO plugin with a revenue tracking feature. **Now, at an attractive introductory price**. [Check out our new plugin here](https://www.tychesoftwares.com/products/woocommerce-flexi-bogo-plugin/?utm_source=wprepo&utm_medium=pluginpagetop&utm_campaign=PriceByUserRole).
 
 **[Product Prices by User Roles for WooCommerce](https://woocommerce.com/products/product-prices-by-user-roles-for-woocommerce/)** plugin lets you display WooCommerce products prices by user roles.
 
@@ -23,6 +27,8 @@ When setting prices **per product** basis, you can set exact price for each prod
 You can also **hide product prices** for selected user roles.
 
 **Some of our Pro plugins:**
+
+1. **[Flexi BOGO for WooCommerce](https://www.tychesoftwares.com/products/woocommerce-flexi-bogo-plugin/?utm_source=wprepo&utm_medium=link&utm_campaign=PriceByUserRole "Flexi BOGO for WooCommerce")**
 
 1. **[Abandoned Cart Pro for WooCommerce](https://www.tychesoftwares.com/store/premium-plugins/woocommerce-abandoned-cart-pro/?utm_source=wprepo&utm_medium=link&utm_campaign=PriceByUserRole "Abandoned Cart Pro for WooCommerce")**
 
@@ -51,6 +57,8 @@ You can also **hide product prices** for selected user roles.
 1. **[Abandoned Cart for WooCommerce](https://wordpress.org/plugins/woocommerce-abandoned-cart/ "Abandoned Cart for WooCommerce")**
 
 2. **[Order Delivery Date for WooCommerce - Lite](https://wordpress.org/plugins/order-delivery-date-for-woocommerce/ "Order Delivery Date for WooCommerce - Lite")**
+
+3. **[Print Invoice & Delivery Notes for WooCommerce](https://wordpress.org/plugins/woocommerce-delivery-notes/ "Print Invoice & Delivery Notes for WooCommerce")**
 
 3. **[Product Delivery Date for WooCommerce - Lite](https://wordpress.org/plugins/product-delivery-date-for-woocommerce-lite/ "Product Delivery Date for WooCommerce")**
 
