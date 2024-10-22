@@ -88,6 +88,9 @@ You can also **hide product prices** for selected user roles.
 
 == Changelog ==
 
+= 1.10.0 - 22/10/2024 = 
+* Fix - Deactivation survey request was being sent even though 'Skip & deactivate' was selected while deactivating the plugin.
+
 = 1.9.1 - 23/07/2024 = 
 * Fix - When the site admin creates the order manually, the user role price is disregarded.
 
