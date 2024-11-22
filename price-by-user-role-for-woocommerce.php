@@ -101,7 +101,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role' ) ) :
 		public function __construct() {
 
 			// Set up localisation.
-			load_plugin_textdomain( 'price-by-user-role-for-woocommerce', false, dirname( plugin_basename( __FILE__ ) ) . '/langs/' );
+			add_action( 'init', array( $this, 'pbur_load_text_domain' ) );
 
 			// Include required files.
 			$this->includes();
@@ -126,7 +126,13 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role' ) ) :
 				add_action( 'pbur_lite_init_tracker_completed', array( __CLASS__, 'init_tracker_completed' ), 10, 2 );
 				add_filter( 'pbur_lite_ts_tracker_data', array( 'Pbur_Tracking_Functions', 'pbur_lite_plugin_tracking_data' ), 10, 1 );
 			}
+		}
 
+		/**
+		 * Added plugin text domain.
+		 */
+		public function pbur_load_text_domain() {
+			load_plugin_textdomain( 'price-by-user-role-for-woocommerce', false, dirname( plugin_basename( __FILE__ ) ) . '/langs/' );
 		}
 
 		/**
