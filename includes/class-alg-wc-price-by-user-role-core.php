@@ -228,7 +228,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		public function change_price_by_role_shipping( $package_rates, $package ) {
+		public function change_price_by_role_shipping( $package_rates, $package ) { // phpcs:ignore
 			if ( 'yes' === get_option( 'alg_wc_price_by_user_role_shipping_enabled', 'no' ) ) {
 				$current_user_role      = alg_get_current_user_first_role();
 				$koef                   = get_option( 'alg_wc_price_by_user_role_' . $current_user_role, 1 );
@@ -404,7 +404,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		public function get_variation_prices_hash( $price_hash, $_product, $display ) {
+		public function get_variation_prices_hash( $price_hash, $_product, $display ) { // phpcs:ignore
 			$user_role                   = alg_get_current_user_first_role();
 			$koef                        = get_option( 'alg_wc_price_by_user_role_' . $user_role, 1 );
 			$is_empty                    = get_option( 'alg_wc_price_by_user_role_empty_price_' . $user_role, 'no' );
@@ -426,7 +426,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 		 */
 		public function enqueue_scripts_admin() {
 			if ( is_admin() ) {
-				wp_register_script(
+				wp_register_script( // phpcs:ignore
 					'tyche',
 					plugins_url() . '/price-by-user-role-for-woocommerce/assets/js/tyche.js',
 					array( 'jquery' ),
@@ -434,7 +434,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 				);
 				wp_enqueue_script( 'tyche' );
 			}
-			global $theorder,$post;
+			global $theorder, $post;
 			if ( ! is_admin() ) {
 				return;
 			}
@@ -445,7 +445,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 			} else {
 				$screen_type = $screen->post_type;
 			}
-			if ( 'shop_order' === $screen_type || 'woocommerce_page_wc-orders' === $screen_type && 'new' === $action || 'edit' === $action ) {
+			if ( 'shop_order' === $screen_type || 'woocommerce_page_wc-orders' === $screen_type && 'new' === $action || 'edit' === $action ) { // phpcs:ignore
 				if ( 'woocommerce_page_wc-orders' === $screen_type ) {
 					$order_id = $theorder->get_id();
 				} else {
