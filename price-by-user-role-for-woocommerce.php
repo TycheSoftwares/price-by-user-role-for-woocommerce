@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore
 /**
  * Plugin Name: Product Prices by User Roles for WooCommerce
  * Plugin URI: https://woocommerce.com/products/product-prices-by-user-roles-for-woocommerce/
@@ -298,7 +298,6 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role' ) ) :
 				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'orders_cache', 'price-by-user-role-for-woocommerce/price-by-user-role-for-woocommerce.php', true );
 			}
 		}
-
 	}
 
 endif;
@@ -311,7 +310,7 @@ if ( ! function_exists( 'alg_wc_price_by_user_role' ) ) {
 	 * @since   1.0.0
 	 * @return  Alg_WC_Price_By_User_Role
 	 */
-	function alg_wc_price_by_user_role() {
+	function alg_wc_price_by_user_role() { // phpcs:ignore
 		return Alg_WC_Price_By_User_Role::instance();
 	}
 }
