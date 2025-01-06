@@ -310,7 +310,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 				if ( 'yes' === get_post_meta( alg_get_product_id_or_variation_parent_id( $_product ), '_alg_wc_price_by_user_role_per_product_settings_enabled', true ) ) {
 					$_product_id = alg_get_product_id( $_product );
 					if ( 'yes' === get_post_meta( $_product_id, '_alg_wc_price_by_user_role_empty_price_' . $current_user_role, true ) ) {
-						return '';
+						return 0.0; // Return 0.0 instead of an empty string.
 					}
 					$regular_price_per_product = get_post_meta( $_product_id, '_alg_wc_price_by_user_role_regular_price_' . $current_user_role, true );
 					if ( '' !== $regular_price_per_product ) {
@@ -323,7 +323,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 							),
 							true
 						) ) {
-							return alg_get_product_display_price( $_product );
+							return floatval( alg_get_product_display_price( $_product ) );
 						} elseif ( in_array(
 							$_current_filter,
 							array(
@@ -340,16 +340,15 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 							}
 							if ( 'yes' === get_option( 'alg_wc_price_by_user_role_multipliers_enabled', 'yes' ) ) {
 								if ( 'yes' === get_option( 'alg_wc_price_by_user_role_empty_price_' . $current_user_role, 'no' ) ) {
-									return '';
+									return 0.0;
 								}
 								$koef = get_option( 'alg_wc_price_by_user_role_' . $current_user_role, 1 );
 
 								if ( 1 !== ( $koef ) ) {
-									return ( '' === $sale_price_per_product ) ? $sale_price_per_product : $sale_price_per_product * (float) $koef;
+									return floatval( ( '' === $sale_price_per_product ) ? $sale_price_per_product : $sale_price_per_product * (float) $koef );
 								}
 							}
-							return ( '' !== $sale_price_per_product && $sale_price_per_product < $regular_price_per_product ) ?
-								$sale_price_per_product : $regular_price_per_product;
+							return floatval( ( '' !== $sale_price_per_product && $sale_price_per_product < $regular_price_per_product ) ? $sale_price_per_product : $regular_price_per_product );
 						} elseif ( in_array(
 							$_current_filter,
 							array(
@@ -360,7 +359,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 							),
 							true
 						) ) {
-							return $regular_price_per_product;
+							return floatval( $regular_price_per_product );
 						} elseif ( in_array(
 							$_current_filter,
 							array(
@@ -372,8 +371,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 							true
 						) ) {
 							$sale_price_per_product = get_post_meta( $_product_id, '_alg_wc_price_by_user_role_sale_price_' . $current_user_role, true );
-							return ( '' !== $sale_price_per_product ) ?
-								$sale_price_per_product : $price;
+							return floatval( ( '' !== $sale_price_per_product ) ? $sale_price_per_product : $price );
 						}
 					}
 				}
@@ -382,16 +380,16 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 			// Global.
 			if ( 'yes' === get_option( 'alg_wc_price_by_user_role_multipliers_enabled', 'yes' ) ) {
 				if ( 'yes' === get_option( 'alg_wc_price_by_user_role_empty_price_' . $current_user_role, 'no' ) ) {
-					return '';
+					return 0.0;
 				}
 				$koef = get_option( 'alg_wc_price_by_user_role_' . $current_user_role, 1 );
 				if ( 1 !== $koef ) {
-					return ( '' === $price ) ? $price : $price * $koef;
+					return floatval( ( '' === $price ) ? $price : $price * $koef );
 				}
 			}
 
 			// No changes.
-			return $price;
+			return floatval( $price );
 		}
 
 		/**
