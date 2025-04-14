@@ -621,27 +621,48 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 		 * @param object $post Post object.
 		 */
 		public function alg_wc_pbur_update_order_role_options( $post_id, $post ) {
-			if ( 'shop_order' !== $post->post_type ) {
+			if ( empty( $post_id ) || empty( $post ) ) {
 				return;
 			}
+			// Ensure this is an order, and avoid execution during auto-save.
+			if ( 'shop_order' !== get_post_type( $post_id ) ) {
+				return;
+			}
+			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+				return;
+			}
+			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+				return;
+			}
+			if ( wp_is_post_revision( $post_id ) || wp_is_post_autosave( $post_id ) ) {
+				return;
+			}
+			// Verify nonce to prevent security issues.
 			if ( empty( $_POST['pbur_userole_checkbox_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['pbur_userole_checkbox_nonce'] ), 'pbur_userole_checkbox_nonce' ) ) {
 				return;
 			}
+			// Ensure required fields exist in POST request.
 			if ( ! isset( $_POST['alg_wc_pbur_select_role'] ) || ! isset( $_POST['checkbox_pbur'] ) ) {
 				return;
 			}
+			// Sanitize input values.
 			$pbur_checkbox_selected   = sanitize_text_field( wp_unslash( $_POST['checkbox_pbur'] ) );
 			$pbur_order_role_selected = sanitize_text_field( wp_unslash( $_POST['alg_wc_pbur_select_role'] ) );
-			if ( $this->pbur_wc_hpos_enabled() ) {
-				$order = wc_get_order( $post_id );
-				$order->update_meta_data( 'alg_wc_price_by_user_role_order_page_checkbox', $pbur_checkbox_selected );
-				$order->update_meta_data( 'alg_wc_price_by_user_role_order_role', $pbur_order_role_selected );
-				$order->save();
-
-			} else {
-				update_post_meta( $post_id, 'alg_wc_price_by_user_role_order_page_checkbox', $pbur_checkbox_selected );
-				update_post_meta( $post_id, 'alg_wc_price_by_user_role_order_role', $pbur_order_role_selected );
+			// Get order object - Use HPOS-compatible method.
+			$order = wc_get_order( $post_id );
+			if ( ! $order ) {
+				return;
 			}
+			// Prevent infinite loop by checking if the meta is already set.
+			$existing_checkbox = $order->get_meta( 'alg_wc_price_by_user_role_order_page_checkbox', true );
+			$existing_role     = $order->get_meta( 'alg_wc_price_by_user_role_order_role', true );
+			if ( $existing_checkbox === $pbur_checkbox_selected && $existing_role === $pbur_order_role_selected ) {
+				return; // Avoid unnecessary save.
+			}
+			// Update order meta.
+			$order->update_meta_data( 'alg_wc_price_by_user_role_order_page_checkbox', $pbur_checkbox_selected );
+			$order->update_meta_data( 'alg_wc_price_by_user_role_order_role', $pbur_order_role_selected );
+			$order->save();
 		}
 
 		/**
