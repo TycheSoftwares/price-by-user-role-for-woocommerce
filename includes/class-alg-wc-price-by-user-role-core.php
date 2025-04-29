@@ -373,7 +373,7 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 						) ) {
 							$sale_price_per_product = get_post_meta( $_product_id, '_alg_wc_price_by_user_role_sale_price_' . $current_user_role, true );
 							return ( '' !== $sale_price_per_product ) ?
-								$sale_price_per_product : $price;
+								$sale_price_per_product : '';
 						}
 					}
 				}
