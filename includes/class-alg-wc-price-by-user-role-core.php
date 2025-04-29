@@ -360,6 +360,12 @@ if ( ! class_exists( 'Alg_WC_Price_By_User_Role_Core' ) ) :
 							),
 							true
 						) ) {
+							if ( 'yes' === get_option( 'alg_wc_price_by_user_role_multipliers_enabled', 'yes' ) ) {
+								$koef = get_option( 'alg_wc_price_by_user_role_' . $current_user_role, 1 );
+								if ( 1 !== ( $koef ) ) {
+									return ( '' === $regular_price_per_product ) ? $regular_price_per_product : $regular_price_per_product * (float) $koef;
+								}
+							}
 							return $regular_price_per_product;
 						} elseif ( in_array(
 							$_current_filter,
