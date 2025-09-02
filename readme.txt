@@ -94,7 +94,6 @@ This plugin communicates with our tracking server to send usage data **only** if
 = 1.14.0 - 02/09/2025 =
 * Fix - Multiplier was not being applied when creating orders manually.
 * Fix - PHP warning displayed when creating a new manual order.
-* Fix - Removed “Reset Usage Tracking” fields from the Multipliers and Per Product tabs.
 
 = 1.13.0 - 29/04/2025 =
 * Fix - Issue where the multiplier was not correctly applying to the regular price on the product page when a sale price was also set.
