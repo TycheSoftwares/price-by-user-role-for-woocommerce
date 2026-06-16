@@ -1,0 +1,44 @@
+// @ts-nocheck
+const path = require('path');
+const { DefinePlugin } = require('webpack');
+const defaultConfig = require('@wordpress/scripts/config/webpack.config');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+
+module.exports = {
+	...defaultConfig,
+	entry: {
+		...defaultConfig.entry,
+		admin: path.resolve(__dirname, 'src/admin/index.js'),
+	},
+	plugins: [
+		...defaultConfig.plugins,
+		new DefinePlugin({
+			'process.env.PBUR_WC_BUILD':   JSON.stringify( process.env.PBUR_WC_BUILD   || 'false' ),
+			'process.env.PBUR_LITE_BUILD': JSON.stringify( process.env.PBUR_LITE_BUILD || 'false' ),
+		}),
+		new BrowserSyncPlugin(
+			{
+				proxy: 'http://localhost:10014/wp-admin/admin.php?page=pbur_page',
+				files: ['**/*.php', 'build/**/*'],
+				open: false,
+				notify: false,
+			},
+			{
+				reload: true,
+			}
+		),
+	],
+	output: {
+		...defaultConfig.output,
+		filename: '[name].js',
+		chunkFilename: '[name].js',
+	},
+	resolve: {
+		...defaultConfig.resolve,
+		alias: {
+			...defaultConfig.resolve?.alias,
+			'@': path.resolve(__dirname, 'src'),
+			'@admin': path.resolve(__dirname, 'src/admin'),
+		},
+	},
+};

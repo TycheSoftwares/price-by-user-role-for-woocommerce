@@ -1,0 +1,1828 @@
+:root {
+    --pbur-color-text: #1d2327;
+    --pbur-color-secondary: #646970;
+    --pbur-color-muted: #50575e;
+    --pbur-color-border: #e5e7eb;
+    --pbur-color-border-wp: #c3c4c7;
+    --pbur-color-bg: #f0f0f1;
+    --pbur-color-bg-card: #fff;
+    --pbur-color-bg-light: #f6f7f7;
+    --pbur-color-success: #00a32a;
+    --pbur-color-error: #d63638;
+    --pbur-color-warning: #dba617;
+    --pbur-font: "Inter", sans-serif;
+    --pbur-font-weight-normal: 400;
+    --pbur-font-weight-medium: 500;
+    --pbur-radius: 6px;
+}
+
+body {
+    background: var(--pbur-color-bg);
+    font-family: var(--pbur-font);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Header ─────────────────────────────────────────────────── */
+
+#pbur-header {
+    .pbur-topbar {
+        margin-inline-start: -20px;
+        background: #fff;
+        border-bottom: 1px solid var(--pbur-color-border);
+        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.08);
+
+        .pbur-topbar-inner {
+            padding: 24px 32px 12px 52px;
+
+            h1 {
+                color: var(--pbur-color-text);
+                font-size: 1.8rem;
+                font-weight: 400;
+                margin: 0 0 4px;
+                line-height: 1.3;
+            }
+
+            p {
+                color: var(--pbur-color-secondary);
+                font-size: 0.875rem;
+                margin: 0;
+            }
+        }
+
+        .pbur-navigation-menu {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            padding: 12px 24px 0 52px;
+            margin-bottom: 0 !important;
+
+            a {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                padding: 15px 18px;
+                text-decoration: none;
+                font-size: 0.875rem;
+                font-weight: var(--pbur-font-weight-medium);
+                color: var(--pbur-color-muted);
+                border-bottom: 2px solid transparent;
+                transition: color 0.15s ease;
+                white-space: nowrap;
+
+                .dashicons {
+                    font-size: 16px;
+                    width: 16px;
+                    height: 16px;
+                    line-height: 1;
+                    flex-shrink: 0;
+                }
+
+                &.is-active {
+                    background: color-mix(in srgb, var(--wp-admin-theme-color, #2271b1) 10%, #fff);
+                    color: var(--wp-admin-theme-color, #2271b1);
+                    border-bottom-color: var(--wp-admin-theme-color, #2271b1);
+                }
+
+                &:not(.is-active):hover {
+                    color: var(--wp-admin-theme-color, #2271b1);
+                }
+
+                &:focus {
+                    box-shadow: none;
+                    outline: none;
+                }
+            }
+
+            .pbur-nav-pro-item {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                padding: 15px 18px;
+                font-size: 0.875rem;
+                font-weight: var(--pbur-font-weight-medium);
+                color: var(--pbur-color-border-wp);
+                border-bottom: 2px solid transparent;
+                white-space: nowrap;
+                text-decoration: none;
+
+                .dashicons {
+                    font-size: 16px;
+                    width: 16px;
+                    height: 16px;
+                    line-height: 1;
+                    flex-shrink: 0;
+                }
+            }
+        }
+    }
+}
+
+.pbur-pro-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 1px 6px;
+    font-size: 0.625rem;
+    font-weight: var(--pbur-font-weight-medium);
+    background: var(--wp-admin-theme-color, #2271b1);
+    color: #fff;
+    border-radius: 3px;
+    line-height: 1.5;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* ─── Page wrapper ───────────────────────────────────────────── */
+
+.pbur-page {
+    margin: 35px 0 0 32px;
+    margin-inline-end: 5%;
+}
+
+/* ─── Page headings ──────────────────────────────────────────── */
+
+.pbur-page-header {
+    margin-bottom: 24px;
+
+    h2 {
+        font-size: 1.2rem;
+        font-weight: var(--pbur-font-weight-medium);
+        color: var(--pbur-color-text);
+        margin: 0 0 4px;
+    }
+
+    p {
+        font-size: 0.8125rem;
+        color: var(--pbur-color-secondary);
+        margin: 0;
+    }
+
+    .pbur-docs-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        margin-top: 6px;
+        font-size: 0.8125rem;
+        color: var(--wp-admin-theme-color, #2271b1);
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        .dashicons {
+            font-size: 14px;
+            width: 14px;
+            height: 14px;
+        }
+    }
+}
+
+.pbur-rules-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+/* ─── Sub-navigation ─────────────────────────────────────────── */
+
+.pbur-sub-nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2px;
+    margin-bottom: 20px;
+    font-size: 0.8125rem;
+
+    .pbur-sub-nav-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 2px;
+    }
+
+    .pbur-sub-nav-separator {
+        color: #d1d5db;
+        padding: 0 4px;
+        user-select: none;
+    }
+
+    a {
+        text-decoration: none;
+        color: var(--pbur-color-muted);
+        padding: 2px 4px;
+        border-radius: 3px;
+
+        &.is-active {
+            color: var(--wp-admin-theme-color, #2271b1);
+            font-weight: var(--pbur-font-weight-medium);
+        }
+
+        &:not(.is-active):hover {
+            color: var(--pbur-color-text);
+        }
+    }
+
+    .pbur-sub-nav-pro-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 2px 4px;
+        color: var(--pbur-color-border-wp);
+        text-decoration: none;
+    }
+}
+
+/* ─── Cards ──────────────────────────────────────────────────── */
+
+.pbur-card {
+    border: 1px solid var(--pbur-color-border) !important;
+    box-shadow: none !important;
+    border-radius: var(--pbur-radius) !important;
+    margin-bottom: 16px;
+
+    .pbur-card-header,
+    .components-card__header {
+        padding: 16px 20px !important;
+        border-bottom: none !important;
+
+        h4 {
+            font-size: 0.9375rem;
+            font-weight: var(--pbur-font-weight-medium);
+            margin: 0;
+            color: var(--pbur-color-text);
+        }
+    }
+}
+
+/* ─── Section headers ────────────────────────────────────────── */
+
+.pbur-section-header {
+    padding-bottom: 16px;
+    margin-bottom: 4px;
+
+    h3 {
+        font-size: 0.9375rem;
+        font-weight: var(--pbur-font-weight-medium);
+        color: var(--pbur-color-text);
+        margin: 0 0 4px;
+    }
+
+    p {
+        font-size: 0.8125rem;
+        color: var(--pbur-color-secondary);
+        margin: 0;
+    }
+}
+
+.pbur-section-header-sub {
+    padding-top: 24px;
+    border-top: 1px solid var(--pbur-color-border);
+    margin-top: 8px;
+}
+
+/* ─── Settings rows ──────────────────────────────────────────── */
+
+.pbur-settings-rows {
+    display: flex;
+    flex-direction: column;
+}
+
+.pbur-settings-row {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 32px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--pbur-color-border);
+    align-items: start;
+
+    &.no-border,
+    &:last-child {
+        border-bottom: none;
+    }
+
+    &.pbur-settings-row--pro-locked {
+        opacity: 0.6;
+
+        .pbur-settings-row-control {
+            pointer-events: none;
+        }
+    }
+
+    .pbur-settings-row-label {
+        label {
+            display: block;
+            font-size: 0.8125rem;
+            font-weight: var(--pbur-font-weight-medium);
+            color: var(--pbur-color-text);
+            margin-bottom: 4px;
+            text-transform: none !important;
+            letter-spacing: normal !important;
+        }
+
+        p {
+            font-size: 0.75rem;
+            color: var(--pbur-color-secondary);
+            margin: 0;
+        }
+    }
+
+    .pbur-settings-row-control {
+        display: flex;
+        align-items: flex-start;
+        padding-top: 2px;
+        width: 100%;
+
+        .pbur-textarea-control,
+        .pbur-textarea-control .components-base-control__field,
+        .pbur-textarea-control textarea.components-textarea-control__input {
+            width: 100%;
+        }
+    }
+}
+
+/* ─── Form controls ──────────────────────────────────────────── */
+
+.pbur-card {
+
+    input.components-text-control__input,
+    textarea.components-textarea-control__input,
+    select.components-select-control__input {
+        font-family: var(--pbur-font);
+        border: 1px solid var(--pbur-color-border-wp);
+        border-radius: var(--pbur-radius);
+        font-size: 0.8125rem;
+
+        &:focus {
+            border-color: var(--wp-admin-theme-color, #2271b1);
+            box-shadow: 0 0 0 1px var(--wp-admin-theme-color, #2271b1);
+        }
+    }
+
+    .components-checkbox-control__input[type="checkbox"]:checked {
+        background: var(--wp-admin-theme-color, #2271b1);
+        border-color: var(--wp-admin-theme-color, #2271b1);
+    }
+
+    .components-checkbox-control__input[type="checkbox"]:focus {
+        box-shadow: 0 0 0 2px var(--wp-admin-theme-color, #2271b1);
+    }
+
+    .components-toggle-control .components-form-toggle.is-checked .components-form-toggle__track {
+        background: var(--wp-admin-theme-color, #2271b1);
+    }
+
+    .components-base-control__label {
+        font-family: var(--pbur-font);
+        font-size: 0.8125rem !important;
+        font-weight: var(--pbur-font-weight-normal);
+        text-transform: none !important;
+    }
+
+    .pbur-token-field-wrap {
+        width: 40%;
+        min-width: 0;
+
+        .components-base-control,
+        .components-base-control__field,
+        .components-form-token-field,
+        .components-form-token-field__input-container {
+            width: 100% !important;
+            margin-bottom: 0;
+        }
+
+        .components-form-token-field__input-container {
+            border: 1px solid var(--pbur-color-border-wp);
+            border-radius: var(--pbur-radius);
+            font-size: 0.8125rem;
+            background: #fff;
+
+            &:focus-within {
+                border-color: var(--wp-admin-theme-color, #2271b1);
+                box-shadow: 0 0 0 1px var(--wp-admin-theme-color, #2271b1);
+            }
+        }
+
+        .components-form-token-field__token {
+            border-radius: 12px;
+            font-size: 0.75rem;
+        }
+
+        .components-form-token-field__help {
+            display: none;
+        }
+
+        .pbur-category-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 6px;
+
+            .components-button.is-secondary {
+                color: var(--pbur-color-secondary) !important;
+                border-color: var(--pbur-color-border-wp) !important;
+                box-shadow: inset 0 0 0 1px var(--pbur-color-border-wp) !important;
+
+                &:hover {
+                    color: var(--pbur-color-text) !important;
+                    border-color: #888 !important;
+                    box-shadow: inset 0 0 0 1px #888 !important;
+                }
+            }
+        }
+    }
+
+    .components-input-control__backdrop {
+        border: 1px solid var(--pbur-color-border-wp) !important;
+        border-radius: var(--pbur-radius) !important;
+    }
+
+    .components-input-base:focus-within .components-input-control__backdrop {
+        border-color: var(--wp-admin-theme-color, #2271b1) !important;
+        box-shadow: 0 0 0 1px var(--wp-admin-theme-color, #2271b1);
+    }
+}
+
+.pbur-rule-name-input {
+    max-width: 420px;
+}
+
+.pbur-price-input {
+    width: 80px;
+    padding: 6px 10px;
+    border: 1px solid var(--pbur-color-border-wp);
+    border-radius: var(--pbur-radius);
+    font-family: var(--pbur-font);
+    font-size: 0.8125rem;
+    color: var(--pbur-color-text);
+
+    &:focus {
+        outline: none;
+        border-color: var(--wp-admin-theme-color, #2271b1);
+        box-shadow: 0 0 0 1px var(--wp-admin-theme-color, #2271b1);
+    }
+}
+
+.pbur-number-control {
+    .components-input-control__input {
+        text-align: right;
+    }
+
+    &.pbur-number-control-left .components-input-control__input {
+        text-align: left;
+    }
+}
+
+.pbur-field-label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--pbur-color-secondary);
+    margin-bottom: 4px;
+}
+
+.pbur-select-sm .components-select-control__input {
+    height: 32px;
+    font-size: 0.8125rem;
+    padding: 4px 24px 4px 8px;
+}
+
+.pbur-qty-input {
+    width: 70px !important;
+
+    .components-input-control__input {
+        width: 70px;
+    }
+}
+
+/* ─── Button ─────────────────────────────────────────────────── */
+
+.pbur-button {
+    border-radius: var(--pbur-radius) !important;
+    font-weight: var(--pbur-font-weight-medium) !important;
+
+    &.pbur-button-full {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+.pbur-text-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--pbur-font);
+    font-size: 0.8125rem;
+    color: var(--pbur-color-secondary);
+    padding: 0;
+    margin-bottom: 8px;
+
+    &:hover {
+        color: var(--pbur-color-text);
+    }
+}
+
+/* ─── Save bar ────────────────────────────────────────────────── */
+
+.pbur-save-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    border-top: 1px solid var(--pbur-color-border);
+    background: var(--pbur-color-bg-light);
+    border-radius: 0 0 var(--pbur-radius) var(--pbur-radius);
+    position: sticky;
+    bottom: 0;
+    z-index: 20;
+}
+
+.pbur-button-reset.pbur-button {
+    background: #fff !important;
+    color: var(--pbur-color-text) !important;
+    border: 1px solid var(--pbur-color-border) !important;
+    box-shadow: none !important;
+
+    &:hover:not(:disabled) {
+        background: var(--pbur-color-bg-light) !important;
+        color: var(--pbur-color-text) !important;
+        border-color: var(--pbur-color-muted) !important;
+    }
+}
+
+/* ─── Dashboard ──────────────────────────────────────────────── */
+
+.pbur-dashboard-content {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+.pbur-progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 0.8125rem;
+
+    .pbur-progress-label {
+        color: var(--pbur-color-secondary);
+    }
+
+    .pbur-progress-pct {
+        font-weight: var(--pbur-font-weight-medium);
+        color: var(--pbur-color-text);
+    }
+}
+
+.pbur-progress-bar {
+    height: 8px;
+    width: 100%;
+    border-radius: 999px;
+    background: var(--pbur-color-border);
+    overflow: hidden;
+
+    .pbur-progress-bar-fill {
+        height: 100%;
+        border-radius: 999px;
+        background: var(--wp-admin-theme-color, #2271b1);
+        transition: width 0.3s ease;
+    }
+}
+
+.pbur-checklist {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .pbur-checklist-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.8125rem;
+
+        .pbur-checklist-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid #d1d5db;
+            background: #fff;
+
+            &::after {
+                content: "";
+                display: none;
+                width: 3px;
+                height: 6px;
+                border: 1.5px solid #fff;
+                border-top: none;
+                border-left: none;
+                transform: translateY(-1px) rotate(45deg);
+            }
+        }
+
+        .pbur-checklist-label {
+            color: var(--pbur-color-text);
+            font-weight: var(--pbur-font-weight-medium);
+        }
+
+        &.is-done {
+            .pbur-checklist-icon {
+                background: var(--wp-admin-theme-color, #2271b1);
+                border-color: var(--wp-admin-theme-color, #2271b1);
+
+                &::after {
+                    display: block;
+                }
+            }
+
+            .pbur-checklist-label {
+                color: var(--pbur-color-secondary);
+                font-weight: var(--pbur-font-weight-normal);
+            }
+        }
+    }
+}
+
+.pbur-success-banner {
+    margin-top: 20px;
+    padding: 12px 16px;
+    background: color-mix(in srgb, var(--wp-admin-theme-color, #2271b1) 10%, #fff);
+    border: 1px solid var(--wp-admin-theme-color, #2271b1);
+    border-radius: var(--pbur-radius);
+    font-size: 0.8125rem;
+    color: var(--wp-admin-theme-color-darker-10, #135e96);
+}
+
+.pbur-quick-tip {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 20px;
+    padding: 14px 18px;
+    background: color-mix(in srgb, var(--wp-admin-theme-color, #2271b1) 10%, #fff);
+    border: 1px solid color-mix(in srgb, var(--wp-admin-theme-color, #2271b1) 30%, #fff);
+    border-radius: var(--pbur-radius);
+
+    .pbur-quick-tip-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        line-height: 1;
+        color: var(--wp-admin-theme-color, #2271b1);
+        flex-shrink: 0;
+        margin-top: 1px;
+    }
+
+    .pbur-quick-tip-title {
+        display: block;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: var(--wp-admin-theme-color, #2271b1);
+        margin-bottom: 4px;
+    }
+
+    .pbur-quick-tip-text {
+        font-size: 0.8125rem;
+        color: var(--wp-admin-theme-color-darker-10, #135e96);
+        margin: 0;
+        line-height: 1.5;
+    }
+}
+
+.pbur-dashboard-summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+
+    .pbur-summary-tile {
+        border: 1px solid var(--pbur-color-border);
+        border-radius: var(--pbur-radius);
+        padding: 16px;
+
+        .pbur-summary-tile-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .pbur-summary-tile-icon {
+            font-size: 18px;
+            width: 18px;
+            height: 18px;
+            line-height: 1;
+            color: var(--wp-admin-theme-color, #2271b1);
+            flex-shrink: 0;
+        }
+
+        .pbur-summary-tile-label {
+            font-size: 0.75rem;
+            color: var(--pbur-color-secondary);
+            font-weight: var(--pbur-font-weight-medium);
+            margin: 0;
+        }
+
+        .pbur-summary-tile-value {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--pbur-color-text);
+            margin: 0;
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+
+            &.is-enabled {
+                color: var(--pbur-color-text);
+                font-weight: 600;
+            }
+
+            &.is-disabled {
+                color: var(--pbur-color-secondary);
+            }
+
+            &.is-count {
+                color: var(--pbur-color-text);
+            }
+        }
+
+        .pbur-summary-tile-sub {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--pbur-color-text);
+        }
+    }
+}
+
+/* ─── Dashboard skeleton ─────────────────────────────────────── */
+
+.pbur-dashboard-skeleton {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+
+    .pbur-skeleton-card {
+        background: #fff;
+        border: 1px solid var(--pbur-color-border);
+        border-radius: var(--pbur-radius);
+        padding: 20px;
+    }
+
+    .pbur-skeleton-check-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .pbur-skeleton-box {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        background: #e2e4e7;
+        border-radius: 3px;
+    }
+
+    .pbur-skeleton-progress {
+        width: 100%;
+        height: 8px;
+        background: #e2e4e7;
+        border-radius: 4px;
+        margin: 12px 0 16px;
+    }
+
+    .pbur-skeleton-summary-tile {
+        height: 76px;
+        background: #e2e4e7;
+        border-radius: var(--pbur-radius);
+    }
+}
+
+/* ─── Settings skeleton ──────────────────────────────────────── */
+
+.pbur-settings-skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .pbur-settings-skeleton-row {
+        display: flex;
+        gap: 32px;
+        align-items: center;
+    }
+}
+
+/* ─── Shared skeleton ────────────────────────────────────────── */
+
+.pbur-skeleton-line {
+    height: 13px;
+    background: linear-gradient(90deg,
+            var(--pbur-color-bg) 25%,
+            #dde0e3 37%,
+            var(--pbur-color-bg) 63%);
+    background-size: 400% 100%;
+    border-radius: 4px;
+    animation: pbur-skeleton 1.4s ease infinite;
+}
+
+.pbur-skeleton-title {
+    width: 160px;
+    height: 15px;
+}
+
+.pbur-skeleton-text {
+    width: 220px;
+}
+
+@keyframes pbur-skeleton {
+    0% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0 50%;
+    }
+}
+
+/* ─── Multipliers table ──────────────────────────────────────── */
+
+.pbur-multipliers-table {
+    border: 1px solid var(--pbur-color-border);
+    border-radius: var(--pbur-radius);
+    overflow: hidden;
+
+    .pbur-multipliers-header {
+        display: grid;
+        grid-template-columns: 1fr 140px 180px;
+        gap: 12px;
+        padding: 10px 16px;
+        background: var(--pbur-color-bg-light);
+        border-bottom: 1px solid var(--pbur-color-border);
+        font-size: 0.75rem;
+        font-weight: var(--pbur-font-weight-medium);
+        color: var(--pbur-color-muted);
+    }
+
+    .pbur-multipliers-row {
+        display: grid;
+        grid-template-columns: 1fr 140px 180px;
+        gap: 12px;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--pbur-color-border);
+        align-items: center;
+
+        &.no-border {
+            border-bottom: none;
+        }
+
+        .pbur-multipliers-role {
+            font-size: 0.8125rem;
+            color: var(--pbur-color-text);
+            font-weight: var(--pbur-font-weight-medium);
+        }
+
+        .pbur-multipliers-input .components-base-control {
+            margin-bottom: 0;
+        }
+
+        .pbur-multipliers-empty .components-base-control {
+            margin-bottom: 0;
+        }
+    }
+}
+
+/* ─── Rules page ─────────────────────────────────────────────── */
+
+.pbur-rules-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--pbur-color-border);
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.pbur-rules-bulk {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .components-base-control {
+        margin-bottom: 0;
+    }
+
+    .components-base-control__field {
+        margin-bottom: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .components-input-control__container,
+    select.components-select-control__input {
+        height: 36px !important;
+        box-sizing: border-box !important;
+    }
+
+    .components-button {
+        height: 36px;
+        min-height: 36px !important;
+        font-size: 0.8125rem !important;
+        font-weight: normal !important;
+        line-height: 1 !important;
+        padding: 0 10px !important;
+    }
+
+    .pbur-rules-selected-count {
+        font-size: 0.8125rem;
+        color: var(--pbur-color-secondary);
+    }
+}
+
+.pbur-rules-search {
+    width: 260px !important;
+
+    .components-base-control {
+        margin-bottom: 0;
+    }
+
+    .components-base-control__field {
+        margin-bottom: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .components-input-control__container,
+    input.components-text-control__input {
+        height: 36px;
+    }
+
+    input {
+        font-size: 0.8125rem !important;
+    }
+}
+
+.pbur-rules-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead tr {
+        border-bottom: 1px solid var(--pbur-color-border);
+        background: var(--pbur-color-bg-light);
+    }
+
+    th {
+        text-align: left;
+        padding: 10px 14px;
+        font-size: 0.8125rem;
+        font-weight: var(--pbur-font-weight-medium);
+        color: var(--pbur-color-muted);
+    }
+
+    tbody tr {
+        border-bottom: 1px solid var(--pbur-color-border);
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        &:hover {
+            background: #fafafa;
+        }
+    }
+
+    td {
+        padding: 12px 14px;
+        font-size: 0.8125rem;
+        vertical-align: middle;
+    }
+
+    .pbur-col-check {
+        width: 36px;
+    }
+
+    .pbur-col-status {
+        width: 80px;
+    }
+
+    .pbur-col-applied {
+        width: 140px;
+    }
+}
+
+.pbur-table-checkbox {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--wp-admin-theme-color, #2271b1);
+}
+
+.pbur-rule-name {
+    font-weight: var(--pbur-font-weight-medium);
+    color: var(--pbur-color-text);
+    display: block;
+    margin-bottom: 4px;
+}
+
+.pbur-rule-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8125rem;
+}
+
+.pbur-action-link {
+    color: var(--wp-admin-theme-color, #2271b1);
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--pbur-font);
+    font-size: 0.8125rem;
+    padding: 0;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.pbur-action-delete {
+    color: var(--pbur-color-error) !important;
+}
+
+.pbur-action-sep {
+    color: #d1d5db;
+    user-select: none;
+}
+
+.pbur-applied-badge {
+    display: inline-block;
+    padding: 8px;
+    border: 1px solid var(--pbur-color-border);
+    border-radius: 12px;
+    font-size: 0.75rem;
+    color: var(--pbur-color-muted);
+}
+
+.pbur-rules-empty {
+    padding: 60px 20px;
+    text-align: center;
+
+    .pbur-rules-empty-icon {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        opacity: 0.4;
+    }
+
+    h4 {
+        font-size: 1rem;
+        font-weight: var(--pbur-font-weight-medium);
+        color: var(--pbur-color-text);
+        margin: 0 0 8px;
+    }
+
+    p {
+        font-size: 0.8125rem;
+        color: var(--pbur-color-secondary);
+        margin: 0 0 15px;
+    }
+}
+
+.pbur-rules-loading {
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--pbur-color-secondary);
+    font-size: 0.8125rem;
+}
+
+.pbur-rules-footer {
+    padding: 12px 20px;
+    background: var(--pbur-color-bg-light);
+    border-top: 1px solid var(--pbur-color-border);
+    border-radius: 0 0 var(--pbur-radius) var(--pbur-radius);
+}
+
+/* ─── Rules toggle ───────────────────────────────────────────── */
+
+.pbur-rules-table .pbur-toggle-control {
+    .components-base-control {
+        margin-bottom: 0;
+    }
+
+    .components-form-toggle.is-checked .components-form-toggle__track {
+        background: var(--wp-admin-theme-color, #2271b1);
+    }
+}
+
+/* ─── Role pricing table ─────────────────────────────────────── */
+
+.pbur-role-pricing-table-wrap {
+    overflow-x: auto;
+    margin-top: 8px;
+    border: 1px solid var(--pbur-color-border);
+    border-radius: var(--pbur-radius);
+}
+
+.pbur-role-pricing-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 700px;
+
+    thead tr {
+        background: var(--pbur-color-bg-light);
+        border-bottom: 1px solid var(--pbur-color-border);
+    }
+
+    th {
+        padding: 10px 10px;
+        font-size: 0.8125rem;
+        font-weight: var(--pbur-font-weight-medium);
+        color: var(--pbur-color-muted);
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    tbody tr {
+        border-bottom: 1px solid var(--pbur-color-border);
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    td {
+        padding: 10px;
+        vertical-align: middle;
+        font-size: 0.8125rem;
+    }
+
+    .pbur-role-name {
+        font-weight: var(--pbur-font-weight-medium);
+        color: var(--pbur-color-text);
+        white-space: nowrap;
+    }
+
+    .pbur-col-center {
+        text-align: center;
+
+        .components-base-control {
+            display: inline-block;
+        }
+    }
+
+    .components-base-control {
+        margin-bottom: 0;
+    }
+
+    .components-select-control__input {
+        font-size: 0.8125rem;
+    }
+}
+
+/* ─── Modal shared ───────────────────────────────────────────── */
+
+.pbur-modal-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-top: 16px;
+}
+
+/* ─── License page ───────────────────────────────────────────── */
+
+.pbur-license-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+
+    .components-base-control {
+        flex: 1;
+        margin-bottom: 0;
+    }
+}
+
+.pbur-license-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8125rem;
+    font-weight: var(--pbur-font-weight-medium);
+    white-space: nowrap;
+
+    &.is-active {
+        background: #edfaef;
+        color: var(--pbur-color-success);
+        border: 1px solid #b8e6be;
+    }
+
+    &.is-inactive {
+        background: var(--pbur-color-bg-light);
+        color: var(--pbur-color-secondary);
+        border: 1px solid var(--pbur-color-border);
+    }
+}
+
+.pbur-license-actions {
+    margin-top: 8px;
+}
+
+.pbur-license-notice {
+    padding: 10px 14px;
+    border-radius: var(--pbur-radius);
+    font-size: 0.8125rem;
+    margin-bottom: 14px;
+
+    &.success {
+        background: #edfaef;
+        border: 1px solid #b8e6be;
+        color: #166534;
+    }
+
+    &.error {
+        background: #fef2f2;
+        border: 1px solid #fca5a5;
+        color: #991b1b;
+    }
+}
+
+/* ─── FAQs ───────────────────────────────────────────────────── */
+
+.pbur-faq-panel {
+    border: 0;
+
+    .components-panel__body {
+        border: 0 !important;
+        border-bottom: 1px solid var(--pbur-color-border) !important;
+        border-radius: 0 !important;
+        margin: 0;
+    }
+
+    .components-panel__body:first-child {
+        border-top: 1px solid var(--pbur-color-border) !important;
+        padding-top: 15px;
+    }
+
+    .components-panel__body:last-child {
+        padding-bottom: 15px;
+    }
+
+    .components-panel__body.is-opened .components-panel__body-title {
+        border-bottom: 0;
+    }
+
+    .components-panel__body-toggle.components-button {
+        font-size: 0.875rem;
+        font-weight: var(--pbur-font-weight-medium);
+        color: var(--pbur-color-text);
+        padding: 16px 24px;
+
+        &:focus {
+            box-shadow: none;
+        }
+    }
+
+    .components-panel__body-content {
+        padding: 0 24px 16px;
+    }
+
+    p {
+        font-size: 0.8125rem;
+        color: var(--pbur-color-secondary);
+        margin: 0;
+        line-height: 1.6;
+    }
+}
+
+.pbur-faq-support {
+    padding: 20px 24px;
+    background: color-mix(in srgb, var(--wp-admin-theme-color, #2271b1) 6%, #fff);
+    border: 1px solid color-mix(in srgb, var(--wp-admin-theme-color, #2271b1) 20%, #fff);
+    border-radius: var(--pbur-radius);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    p {
+        font-size: 0.8125rem;
+        color: var(--wp-admin-theme-color, #2271b1);
+        margin: 0;
+    }
+
+    a {
+        font-size: 0.8125rem;
+        font-weight: var(--pbur-font-weight-medium);
+        color: var(--wp-admin-theme-color, #2271b1);
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.pbur-faq-support-heading {
+    font-size: 0.9375rem;
+    font-weight: var(--pbur-font-weight-semibold);
+    color: var(--wp-admin-theme-color, #2271b1);
+}
+
+/* ─── Toast ──────────────────────────────────────────────────── */
+
+.pbur-toast {
+    position: fixed;
+    top: 90px;
+    right: 28px;
+    z-index: 10000;
+    width: 360px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    &-notice {
+        border-radius: 8px;
+        padding: 10px 16px 10px 42px;
+        font-size: 0.875rem;
+        font-weight: var(--pbur-font-weight-medium);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18), 0 2px 6px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        min-height: 36px;
+        position: relative;
+        animation: pbur-toast-slide 0.25s ease-out;
+        border: none;
+
+        .components-notice__content {
+            margin: 0;
+            font-size: 0.875rem;
+        }
+
+        .components-notice__dismiss {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        &::before {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        &.is-success {
+            background: #1f7a3f;
+            color: #fff;
+
+            &::before {
+                content: "✓";
+            }
+        }
+
+        &.is-error {
+            background: #c7363b;
+            color: #fff;
+
+            &::before {
+                content: "⚠";
+            }
+        }
+
+        &.is-warning {
+            background: var(--pbur-color-warning);
+            color: #fff;
+
+            &::before {
+                content: "!";
+            }
+        }
+
+        &.is-info {
+            background: var(--wp-admin-theme-color, #2271b1);
+            color: #fff;
+
+            &::before {
+                content: "i";
+            }
+        }
+    }
+}
+
+@keyframes pbur-toast-slide {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ─── Loading overlay ────────────────────────────────────────── */
+
+.pbur-loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.85);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ─── Alert / dismissible banner ────────────────────────────── */
+
+.pbur-alert {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    background: color-mix(in srgb, var(--wp-admin-theme-color, #2271b1) 8%, #fff);
+    border: 1px solid color-mix(in srgb, var(--wp-admin-theme-color, #2271b1) 25%, #fff);
+    border-radius: 4px;
+    font-size: 0.8125rem;
+    color: var(--pbur-color-text);
+    width: 100%;
+
+    a {
+        color: var(--wp-admin-theme-color, #2271b1);
+        text-decoration: underline;
+    }
+
+    .pbur-alert-dismiss {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.125rem;
+        color: var(--pbur-color-secondary);
+        padding: 0 0 0 12px;
+        flex-shrink: 0;
+
+        &:hover {
+            color: var(--pbur-color-text);
+        }
+    }
+}
+
+/* ─── Notice ─────────────────────────────────────────────────── */
+
+.pbur-notice {
+    margin: 0;
+    padding: 6px 12px;
+    width: auto;
+    display: inline-flex;
+
+    .pbur-notice-inner {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.875rem;
+    }
+
+    &.pbur-notice-success {
+        background: #edfaef;
+        border-left: 4px solid var(--pbur-color-success);
+    }
+
+    &.pbur-notice-error {
+        background: #fef2f2;
+        border-left: 4px solid var(--pbur-color-error);
+    }
+
+    &.pbur-notice-success svg {
+        color: var(--pbur-color-success);
+    }
+
+    &.pbur-notice-error svg {
+        color: var(--pbur-color-error);
+    }
+}
+
+/* ─── License page ───────────────────────────────────────────── */
+
+.pbur-card-header-desc {
+    margin: 2px 0 0;
+    font-size: 0.8125rem;
+    color: var(--pbur-color-secondary);
+}
+
+.pbur-license-control {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.pbur-license-field {
+    width: 100%;
+    max-width: 533px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.pbur-license-input {
+    width: 100%;
+
+    input {
+        margin-bottom: 0 !important;
+    }
+
+    &.pbur-input-error input {
+        border-color: var(--pbur-error, #cc1818) !important;
+        box-shadow: 0 0 0 1px var(--pbur-error, #cc1818) !important;
+    }
+}
+
+.pbur-license-error {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0;
+    padding: 10px 14px;
+    background: color-mix(in srgb, #cc1818 8%, #fff);
+    border: 1px solid color-mix(in srgb, #cc1818 30%, #fff);
+    border-radius: var(--pbur-radius);
+    font-size: 0.8125rem;
+    color: #7a0000;
+    line-height: 1.5;
+
+    &::before {
+        content: "⚠";
+        flex-shrink: 0;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        color: #cc1818;
+    }
+}
+
+.pbur-license-success {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0;
+    padding: 10px 14px;
+    background: color-mix(in srgb, #1a7a1a 8%, #fff);
+    border: 1px solid color-mix(in srgb, #1a7a1a 30%, #fff);
+    border-radius: var(--pbur-radius);
+    font-size: 0.8125rem;
+    color: #0a4a0a;
+    line-height: 1.5;
+
+    &::before {
+        content: "✓";
+        flex-shrink: 0;
+        font-size: 0.875rem;
+        font-weight: 700;
+        line-height: 1.5;
+        color: #1a7a1a;
+    }
+}
+
+.pbur-license-active-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    background: #edfaef;
+    border: 1px solid #a7f3b2;
+    border-radius: var(--pbur-radius);
+
+    strong {
+        display: block;
+        font-size: 0.875rem;
+        color: #166534;
+        margin-bottom: 2px;
+    }
+
+    p {
+        margin: 0;
+        font-size: 0.8125rem;
+        color: #15803d;
+    }
+}
+
+.pbur-license-active-icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--pbur-color-success);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+
+    &::after {
+        content: "";
+        display: block;
+        width: 5px;
+        height: 9px;
+        border: 1.5px solid #fff;
+        border-top: none;
+        border-left: none;
+        transform: translateY(-1px) rotate(45deg);
+    }
+}
+
+.pbur-license-expired-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    background: #fffbeb;
+    border: 1px solid #fcd34d;
+    border-radius: var(--pbur-radius);
+
+    strong {
+        display: block;
+        font-size: 0.875rem;
+        color: #92400e;
+        margin-bottom: 2px;
+    }
+
+    p {
+        margin: 0;
+        font-size: 0.8125rem;
+        color: #b45309;
+    }
+}
+
+.pbur-license-expired-icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #f59e0b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+
+    &::after {
+        content: "!";
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+        color: #fff;
+        line-height: 1;
+    }
+}
+
+.pbur-license-actions {
+    margin-top: 4px;
+}
+
+.pbur-button-destructive.pbur-button,
+.pbur-button-destructive.components-button {
+    color: var(--pbur-color-error) !important;
+    background: #fff !important;
+    border: 1px solid var(--pbur-color-error) !important;
+    box-shadow: none !important;
+    outline: none !important;
+
+    &:hover:not(:disabled) {
+        background: #fef2f2 !important;
+        box-shadow: none !important;
+    }
+
+    &:focus:not(:disabled) {
+        box-shadow: 0 0 0 2px color-mix(in srgb, var(--pbur-color-error) 30%, #fff) !important;
+    }
+}
+
+.pbur-license-benefits-section {
+    border-top: 1px solid var(--pbur-color-border);
+    padding: 20px 24px;
+}
+
+/* ─── License skeleton ───────────────────────────────────────── */
+
+.pbur-license-skeleton-header {
+    display: flex;
+    flex-direction: column;
+}
+
+.pbur-license-skeleton-input {
+    width: 100%;
+    max-width: 400px;
+    height: 32px;
+    border-radius: var(--pbur-radius);
+}
+
+.pbur-license-skeleton-button {
+    width: 130px;
+    height: 32px;
+    border-radius: var(--pbur-radius);
+    margin-top: 12px;
+}
+
+.pbur-license-skeleton-benefit-icon {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    background: linear-gradient(90deg,
+            var(--pbur-color-bg) 25%,
+            #dde0e3 37%,
+            var(--pbur-color-bg) 63%);
+    background-size: 400% 100%;
+    border-radius: 50%;
+    animation: pbur-skeleton 1.4s ease infinite;
+}
+
+.pbur-license-benefits-header {
+    margin-bottom: 16px;
+
+    h4,
+    .components-heading {
+        font-size: 0.9375rem;
+        font-weight: var(--pbur-font-weight-medium);
+        color: var(--pbur-color-text);
+        margin: 0 0 4px;
+    }
+}
+
+.pbur-license-benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+
+    @media (max-width: 640px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.pbur-license-benefit-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid var(--pbur-color-border);
+    border-radius: var(--pbur-radius);
+    background: var(--pbur-color-bg-light);
+
+    strong {
+        display: block;
+        font-size: 0.875rem;
+        color: var(--pbur-color-text);
+        margin-bottom: 4px;
+    }
+
+    p {
+        margin: 0;
+        font-size: 0.8125rem;
+        color: var(--pbur-color-secondary);
+    }
+}
+
+.pbur-license-benefit-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--wp-admin-theme-color, #2271b1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+
+    &::after {
+        content: "";
+        display: block;
+        width: 5px;
+        height: 9px;
+        border: 1.5px solid var(--wp-admin-theme-color, #2271b1);
+        border-top: none;
+        border-left: none;
+        transform: translateY(-1px) rotate(45deg);
+    }
+}
+
+/* ─── Footer ─────────────────────────────────────────────────── */
+
+#pbur-footer {
+    margin-top: 32px;
+    padding: 16px 0;
+    border-top: 1px solid var(--pbur-color-border);
+    text-align: center;
+    color: var(--pbur-color-secondary);
+    font-size: 0.8125rem;
+
+    p {
+        margin: 4px 0;
+    }
+
+    a {
+        color: var(--wp-admin-theme-color, #2271b1);
+        text-decoration: none;
+
+        &:hover {
+            color: var(--wp-admin-theme-color-darker-10, #135e96);
+            text-decoration: underline;
+        }
+    }
+}
