@@ -1,0 +1,41 @@
+{
+    "name": "price-by-user-role-for-woocommerce",
+    "version": "2.0.0",
+    "private": true,
+    "description": "Product Prices by User Roles for WooCommerce",
+    "author": "Tyche Softwares",
+    "license": "Tyche Softwares",
+    "main": "build/index.js",
+    "scripts": {
+        "build": "wp-scripts build",
+        "start": "wp-scripts start",
+        "format": "prettier --write \"src/**/*.{js,jsx}\"",
+        "lint:css": "wp-scripts lint-style",
+        "lint:js": "wp-scripts lint-js",
+        "packages-update": "wp-scripts packages-update",
+        "makejsstring": "node .bin/make-string.js",
+        "makepot": "wp i18n make-pot . languages/price-by-user-role-for-woocommerce.pot --skip-js --exclude=src,node_modules --merge=languages/js.pot",
+        "clean": "rm -rf dist",
+        "translate": "wp i18n make-pot . languages/price-by-user-role-for-woocommerce.pot && node generate-po.js && node compile-mo.js",
+        "translate:deepl": "node --env-file=.env translate-po.mjs && node compile-mo.js",
+        "package": "node build-plugin.js",
+        "release": "npm run clean && npm run build && npm run package"
+    },
+    "devDependencies": {
+        "@wordpress/eslint-plugin": "^22.22.0",
+        "@wordpress/scripts": "^30.12.0",
+        "archiver": "^7.0.1",
+        "browser-sync": "^3.0.4",
+        "browser-sync-webpack-plugin": "^2.4.0",
+        "eslint": "^8.57.1",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-react": "^7.37.5",
+        "gettext-parser": "^9.0.2"
+    },
+    "dependencies": {
+        "@fontsource/inter": "^5.2.8",
+        "@wordpress/icons": "^11.7.0",
+        "react-router-dom": "^6.23.1",
+        "react-select": "^5.8.0"
+    }
+}
