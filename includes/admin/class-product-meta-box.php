@@ -211,23 +211,6 @@ class Product_Meta_Box {
 			? sanitize_key( wp_unslash( $_POST['alg_wc_price_by_user_role_per_product_settings_enabled'] ) )
 			: 'no';
 
-		if ( 'yes' === $enabled ) {
-			$args = array(
-				'post_type'      => 'product',
-				'post_status'    => 'any',
-				'posts_per_page' => 1,
-				'meta_key'       => '_alg_wc_price_by_user_role_per_product_settings_enabled', // phpcs:ignore WordPress.DB.SlowDBQuery
-				'meta_value'     => 'yes', // phpcs:ignore WordPress.DB.SlowDBQuery
-				'post__not_in'   => array( $post_id ),
-				'fields'         => 'ids',
-			);
-			$loop = new \WP_Query( $args );
-			if ( $loop->found_posts >= 1 ) {
-				add_filter( 'redirect_post_location', array( $this, 'add_notice_query_var_lite' ), 99 );
-				$enabled = 'no';
-			}
-		}
-
 		update_post_meta( $post_id, '_alg_wc_price_by_user_role_per_product_settings_enabled', $enabled );
 
 		$product  = wc_get_product( $post_id );
