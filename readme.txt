@@ -2,8 +2,8 @@
 Contributors: tychesoftwares
 Tags: woocommerce, price by user role, role based pricing, user role
 Requires at least: 4.4
-Tested up to: 6.9.4
-Stable tag: 2.0.0
+Tested up to: 7.1.2
+Stable tag: 2.1.0
 Requires PHP: 7.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -167,6 +167,9 @@ Yes. Customers without a special pricing rule continue to see your regular WooCo
 This plugin communicates with our tracking server to send usage data **only** if the user has explicitly opted in to usage tracking. For detailed information about what is tracked, please refer to our [usage tracking documentation](https://www.tychesoftwares.com/docs/docs/price-based-on-user-role-for-woocommerce/).
 
 == Changelog ==
+= 2.1.0 - 28/09/2026 =
+* Enhancement - Removed the one-product limit for product-level role-based pricing in the free version. You can now set role-based prices on any number of products.
+
 = 2.0.0 - 16/06/2026 =
 * Dev - Full plugin rewrite with a modern, namespaced PHP architecture for improved reliability and maintainability.
 * Dev - New React-based admin interface for all settings pages.
