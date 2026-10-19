@@ -386,7 +386,14 @@ final class Price_By_User_Role_For_WooCommerce {
 		$is_build = ( 0 === strpos( ltrim( $path, '/' ), 'build/' ) );
 
 		if ( ! $debug && ! $is_build ) {
-			$path = preg_replace( '/\.(js|css)$/', '.min.$1', $path );
+			$min_path = preg_replace( '/\.(js|css)$/', '.min.$1', $path );
+			if ( $min_path !== $path ) {
+				// Check if the minified file exists. If it does, use it instead of the unminified version.
+				$base_dir = '' === $plugin ? WP_PLUGIN_DIR : dirname( $plugin );
+				if ( file_exists( trailingslashit( $base_dir ) . ltrim( $min_path, '/' ) ) ) {
+					$path = $min_path;
+				}
+			}
 		}
 
 		return '' === $plugin ? plugins_url( $path ) : plugins_url( $path, $plugin );
