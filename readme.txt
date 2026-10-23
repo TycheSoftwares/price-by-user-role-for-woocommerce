@@ -125,6 +125,10 @@ Tyche Softwares develops a range of WooCommerce plugins that help merchants mana
 
 == Frequently Asked Questions ==
 
+= How do I create wholesale pricing in WooCommerce? =
+
+Assign a separate pricing rule to your wholesale user role using global price multipliers or product-specific pricing. Wholesale customers will automatically see their assigned prices when logged in.
+
 = Can I show different prices for different user roles? =
 
 Yes. You can set different prices for WooCommerce user roles, such as wholesale customers, retailers, members, and subscribers. Each role can have its own pricing rules.
@@ -140,6 +144,14 @@ Yes. The Lite version lets you set role-based prices for any number of individua
 = Does the plugin support variable products? =
 
 Yes. You can set role-based prices for WooCommerce variable products, including individual variations. If a variation doesn't have its own role-based price, the plugin can fall back to the price configured for the parent product.
+
+= Can I hide prices from selected user roles? =
+
+Yes. You can hide product prices for selected WooCommerce user roles whenever required.
+
+= Will my retail customers continue to see the normal price? =
+
+Yes. Customers without a special pricing rule continue to see your regular WooCommerce prices.
 
 == Screenshots ==
 
