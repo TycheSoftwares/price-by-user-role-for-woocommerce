@@ -29,7 +29,7 @@ For example, you can offer wholesale customers a discounted price while retail c
 ### Set Product-Specific Prices
 Need more control over selected products? Override your global pricing by assigning an exact price for an individual product based on the selected user role.
 
-The Lite version allows you to configure role-based pricing for one product, making it easy to evaluate the plugin before upgrading to the Pro version for unlimited product pricing.
+With the Lite version, you can configure role-based prices for any number of products. This is useful when you want to offer special prices on selected products while keeping your regular pricing rules for the rest of your store.
 
 ### Compatible with Variable Products
 Apply role-based pricing to WooCommerce variable products so customers continue to receive the correct pricing regardless of the variation they choose.
@@ -55,7 +55,7 @@ If you find the plugin useful, a **⭐ 5-star rating** is always appreciated —
 
 = Looking for More Advanced Pricing Features? =
 
-Upgrade to [Product Prices by User Roles for WooCommerce Pro](https://www.tychesoftwares.com/products/woocommerce-price-user-role-plugin/?utm_source=wprepo&utm_medium=prolink&utm_campaign=ProductPricesByUserRoles) to unlock additional pricing options, including unlimited product-level pricing, bulk pricing rules, quantity-based pricing, category-based pricing, shipping charges based on user roles, and more.
+Upgrade to [Product Prices by User Roles for WooCommerce Pro](https://www.tychesoftwares.com/products/woocommerce-price-user-role-plugin/?utm_source=wprepo&utm_medium=prolink&utm_campaign=ProductPricesByUserRoles) to unlock additional pricing options, bulk pricing rules, quantity-based pricing, category-based pricing, shipping charges based on user roles, and more.
 
 See the complete Lite vs Pro comparison: [https://www.tychesoftwares.com/differences-between-pro-and-lite-versions-of-product-prices-by-user-roles-for-woocommerce-plugin/](https://www.tychesoftwares.com/differences-between-pro-and-lite-versions-of-product-prices-by-user-roles-for-woocommerce-plugin/)
 
@@ -77,7 +77,7 @@ Tyche Softwares develops a range of WooCommerce plugins that help merchants mana
 
 3. **[Booking & Appointment Plugin for WooCommerce](https://www.tychesoftwares.com/products/woocommerce-booking-and-appointment-plugin/?utm_source=wprepo&utm_medium=prolink&utm_campaign=BookingAppointmentLite "Booking & Appointment Plugin for WooCommerce")**
 
-4. **[Order Delivery Date Pro for WooCommerce](https://www.tychesoftwares.com/store/premium-plugins/order-delivery-date-for-woocommerce-pro-21/?utm_source=wprepo&utm_medium=link&utm_campaign=OrderDeliveryDateLite "Order Delivery Date Pro for WooCommerce")**
+4. **[Order Delivery Date Pro for WooCommerce](https://www.tychesoftwares.com/products/woocommerce-order-delivery-date-pro-plugin/?utm_source=wprepo&utm_medium=link&utm_campaign=OrderDeliveryDateLite "Order Delivery Date Pro for WooCommerce")**
 
 5. **[Product Delivery Date Pro for WooCommerce](https://www.tychesoftwares.com/store/premium-plugins/product-delivery-date-pro-for-woocommerce/?utm_source=wprepo&utm_medium=topprolink&utm_campaign=ProductDeliveryDateLite "Product Delivery Date Pro for WooCommerce")**
 
@@ -131,19 +131,19 @@ Assign a separate pricing rule to your wholesale user role using global price mu
 
 = Can I show different prices for different user roles? =
 
-Yes. The plugin displays different product prices based on WooCommerce user roles.
+Yes. You can set different prices for WooCommerce user roles, such as wholesale customers, retailers, members, and subscribers. Each role can have its own pricing rules.
 
 = Can I apply role-based pricing across my entire store? =
 
-Yes. Global price multipliers allow you to adjust prices across all products for each user role.
+Yes. Use global price multipliers to increase or decrease prices across your store for specific user roles without editing each product individually.
 
-= Can I set an exact price for an individual product? =
+= Can I set an exact price for multiple products? =
 
-Yes. The Lite version supports exact pricing for one product. Upgrade to the Pro version if you need to configure pricing for multiple products.
+Yes. The Lite version lets you set role-based prices for any number of individual products. You can assign exact prices to products based on customer roles.
 
 = Does the plugin support variable products? =
 
-Yes. Role-based pricing works with WooCommerce variable products.
+Yes. You can set role-based prices for WooCommerce variable products, including individual variations. If a variation doesn't have its own role-based price, the plugin can fall back to the price configured for the parent product.
 
 = Can I hide prices from selected user roles? =
 
