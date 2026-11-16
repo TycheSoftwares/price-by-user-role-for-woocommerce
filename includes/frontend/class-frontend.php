@@ -627,6 +627,7 @@ class Frontend {
 		}
 
 		foreach ( $cart_obj->get_cart() as $key => $value ) {
+			unset( $sale_price, $regular_price );
 			$product_id        = $value['product_id'];
 			$_product          = wc_get_product( $product_id );
 			$current_user_role = Utils::get_current_user_role();
